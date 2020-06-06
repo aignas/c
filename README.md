@@ -6,10 +6,12 @@ all in a single repository, so that I can reuse tooling.  I also want to use
 
 ## Setup notes
 
-Initial setup
+1. Initial bazel setup
 ```
 $ touch WORKSPACE
 $ touch BUILD.bazel
 $ bazel build ...
 # configure .gitignore
 ```
+
+2. Setup [gazelle](https://github.com/bazelbuild/bazel-gazelle)
