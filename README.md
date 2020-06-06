@@ -14,4 +14,8 @@ $ bazel build ...
 # configure .gitignore
 ```
 
-2. Setup [gazelle](https://github.com/bazelbuild/bazel-gazelle)
+1. Setup [gazelle](https://github.com/bazelbuild/bazel-gazelle) and run:
+```
+$ bazel build ...
+$ bazel run //:gazelle
+```
