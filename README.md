@@ -19,8 +19,7 @@ $ bazel build ...
 $ bazel build ...
 $ bazel run //:gazelle
 ```
-
-1. Setup `direnv` and `gazelle` shell script
+2. Setup `direnv` and `gazelle` shell script
 ```
 $ sudo apt-get install direnv
 $ cat <<EOF >> ~/.zshrc
@@ -30,7 +29,6 @@ EOF
 $ direnv allow
 $ gazelle
 ```
-
-1. Setup a CI check to test that `gazelle` does not need to be run.
-
-1. Add `bazel buildifier` and add it to the CI script.
+3. Setup a CI check to test that `gazelle` does not need to be run.
+4. Add `bazel buildifier` and add it to the CI script.
+5. Add shellcheck. Note, my setup only works on linux, but adding Mac would not be too difficult.

@@ -21,3 +21,4 @@ cd "${WORKSPACE_ROOT}"
 
 ensure tools/buildifier
 ensure tools/gazelle
+bazel test //:verify-all

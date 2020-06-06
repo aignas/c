@@ -1,7 +1,24 @@
 load("@bazel_gazelle//:def.bzl", "gazelle")
 load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
+load("//rules:shellcheck.bzl", "shellcheck", "shellcheck_test")
 
 # gazelle:prefix github.com/aignas/code
 gazelle(name = "gazelle")
 
 buildifier(name = "buildifier")
+
+shellcheck(name = "shellcheck")
+
+shellcheck_test(
+    name = "shellcheck_all",
+    data = glob(["tools/**/*.sh"]),
+    tags = ["lint"],
+)
+
+test_suite(
+    name = "verify-all",
+    tags = ["lint"],
+    tests = [
+        ":shellcheck_all",
+    ],
+)
