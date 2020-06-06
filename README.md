@@ -31,4 +31,6 @@ $ direnv allow
 $ gazelle
 ```
 
-1. Setup a CI check to test that gazelle does not need to be run.
+1. Setup a CI check to test that `gazelle` does not need to be run.
+
+1. Add `bazel buildifier` and add it to the CI script.
