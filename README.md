@@ -19,3 +19,14 @@ $ bazel build ...
 $ bazel build ...
 $ bazel run //:gazelle
 ```
+
+1. Setup `direnv` and `gazelle` shell script
+```
+$ sudo apt-get install direnv
+$ cat <<EOF >> ~/.zshrc
+export DIRENV_LOG_FORMAT=
+eval "\$(direnv hook zsh)"
+EOF
+$ direnv allow
+$ gazelle
+```
