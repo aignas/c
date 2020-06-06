@@ -30,3 +30,5 @@ EOF
 $ direnv allow
 $ gazelle
 ```
+
+1. Setup a CI check to test that gazelle does not need to be run.
