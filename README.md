@@ -33,3 +33,4 @@ $ gazelle
 4. Add `bazel buildifier` and add it to the CI script.
 5. Add shellcheck. Note, my setup only works on linux, but adding Mac would not be too difficult.
 6. Pin buildifier to a particular tag.
+7. Add bazelisk in order to not need a system `bazel` installation.
