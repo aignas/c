@@ -32,3 +32,4 @@ $ gazelle
 3. Setup a CI check to test that `gazelle` does not need to be run.
 4. Add `bazel buildifier` and add it to the CI script.
 5. Add shellcheck. Note, my setup only works on linux, but adding Mac would not be too difficult.
+6. Profit?
