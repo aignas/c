@@ -40,8 +40,8 @@ protobuf_deps()
 
 http_archive(
     name = "com_github_bazelbuild_buildtools",
-    strip_prefix = "buildtools-master",
-    url = "https://github.com/bazelbuild/buildtools/archive/master.zip",
+    strip_prefix = "buildtools-3.2.0",
+    url = "https://github.com/bazelbuild/buildtools/archive/3.2.0.zip",
 )
 
 http_archive(
