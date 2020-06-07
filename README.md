@@ -13,13 +13,12 @@ $ touch BUILD.bazel
 $ bazel build ...
 # configure .gitignore
 ```
-
-1. Setup [gazelle](https://github.com/bazelbuild/bazel-gazelle) and run:
+2. Setup [gazelle](https://github.com/bazelbuild/bazel-gazelle) and run:
 ```
 $ bazel build ...
 $ bazel run //:gazelle
 ```
-2. Setup `direnv` and `gazelle` shell script
+3. Setup `direnv` and `gazelle` shell script
 ```
 $ sudo apt-get install direnv
 $ cat <<EOF >> ~/.zshrc
@@ -29,8 +28,8 @@ EOF
 $ direnv allow
 $ gazelle
 ```
-3. Setup a CI check to test that `gazelle` does not need to be run.
-4. Add `bazel buildifier` and add it to the CI script.
-5. Add shellcheck. Note, my setup only works on linux, but adding Mac would not be too difficult.
-6. Pin buildifier to a particular tag.
-7. Add bazelisk in order to not need a system `bazel` installation.
+4. Setup a CI check to test that `gazelle` does not need to be run.
+5. Add `bazel buildifier` and add it to the CI script.
+6. Add shellcheck. Note, my setup only works on linux, but adding Mac would not be too difficult.
+7. Pin buildifier to a particular tag.
+8. Add bazelisk in order to not need a system `bazel` installation.
