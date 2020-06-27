@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Mount bazel cache
+      uses: actions/cache@v1
+      with:
+        path: "/home/runner/.cache/bazel"
+        key: bazel
+
+    - name: Bootstrap
+      run: ./tools/bootstrap.sh
+
+    - name: Test
+      run: |
+        source .envrc
+        ./tools/ci/ci-test.sh
