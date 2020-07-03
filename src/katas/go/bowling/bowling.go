@@ -64,9 +64,9 @@ func Result(input string) (int, error) {
 
 func parseFrames(input string) ([]frame, error) {
 	var (
-		frames = make([]frame, 10)
-		i      = 0
-		j      = 0
+		frames []frame
+		vals   []int
+		i, j   int
 	)
 
 	for _, r := range input {
@@ -74,9 +74,9 @@ func parseFrames(input string) ([]frame, error) {
 
 		switch r {
 		case '-':
-			// nothing
+			val = 0
 		case '/':
-			val = 10 - frames[i].vals[j-1]
+			val = 10 - vals[j-1]
 		case 'X':
 			val = 10
 		default:
@@ -87,14 +87,16 @@ func parseFrames(input string) ([]frame, error) {
 			val = v
 		}
 
-		frames[i].vals = append(frames[i].vals, val)
+		vals = append(vals, val)
 		if i == 9 || j == 0 && val != 10 {
 			j++
 			continue
 		}
 
+		frames = append(frames, newFrame(vals...))
+		vals = vals[:0]
 		i++
 		j = 0
 	}
-	return frames, nil
+	return append(frames, newFrame(vals...)), nil
 }
