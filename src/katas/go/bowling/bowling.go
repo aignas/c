@@ -5,33 +5,30 @@ import (
 	"strconv"
 )
 
-func newFrame(first, second int) frame {
+func newFrame(vals ...int) frame {
 	return frame{
-		First:  first,
-		Second: second,
-	}
-}
-
-func newLastFrame(first, second, third int) frame {
-	return frame{
-		First:  first,
-		Second: second,
-		Third:  third,
+		vals: vals,
 	}
 }
 
 type frame struct {
-	First  int
-	Second int
-	Third  int
+	vals []int
 }
 
 func (f *frame) Sum() int {
-	return f.First + f.Second + f.Third
+	var r int
+	for _, v := range f.vals {
+		r += v
+	}
+	return r
 }
 
 func (f *frame) isSpare() bool {
-	return f.Sum() == 10
+	return len(f.vals) == 2 && f.Sum() == 10
+}
+
+func (f *frame) isStrike() bool {
+	return len(f.vals) == 1 && f.vals[0] == 10
 }
 
 // Result calculates the result of a bowling game.
@@ -45,8 +42,17 @@ func Result(input string) (int, error) {
 	for i, frame := range frames {
 		result += frame.Sum()
 
-		if i != 9 && frame.isSpare() {
-			result += frames[i+1].First
+		if frame.isSpare() {
+			result += frames[i+1].vals[0]
+		}
+		if frame.isStrike() {
+			next := frames[i+1]
+			result += next.vals[0]
+			if next.isStrike() {
+				result += frames[i+2].vals[0]
+			} else {
+				result += next.vals[1]
+			}
 		}
 	}
 	return result, nil
@@ -66,7 +72,9 @@ func parseFrames(input string) ([]frame, error) {
 		case '-':
 			// nothing
 		case '/':
-			val = 10 - frames[i].First
+			val = 10 - frames[i].vals[j-1]
+		case 'X':
+			val = 10
 		default:
 			v, err := strconv.Atoi(string(r))
 			if err != nil {
@@ -75,19 +83,20 @@ func parseFrames(input string) ([]frame, error) {
 			val = v
 		}
 
+		frames[i].vals = append(frames[i].vals, val)
 		if j == 0 {
-			frames[i].First = val
-			j++
+			if val == 10 && i != 9 {
+				i++
+			} else {
+				j++
+			}
 		} else if j == 1 {
-			frames[i].Second = val
 			if i == 9 {
 				j++
 			} else {
 				j = 0
 				i++
 			}
-		} else {
-			frames[i].Third = val
 		}
 	}
 	return frames, nil
