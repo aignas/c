@@ -28,7 +28,11 @@ func (f *frame) isSpare() bool {
 }
 
 func (f *frame) isStrike() bool {
-	return len(f.vals) == 1 && f.vals[0] == 10
+	return len(f.vals) == 1 && f.First() == 10
+}
+
+func (f *frame) First() int {
+	return f.vals[0]
 }
 
 // Result calculates the result of a bowling game.
@@ -43,13 +47,13 @@ func Result(input string) (int, error) {
 		result += frame.Sum()
 
 		if frame.isSpare() {
-			result += frames[i+1].vals[0]
+			result += frames[i+1].First()
 		}
 		if frame.isStrike() {
 			next := frames[i+1]
-			result += next.vals[0]
+			result += next.First()
 			if next.isStrike() {
-				result += frames[i+2].vals[0]
+				result += frames[i+2].First()
 			} else {
 				result += next.vals[1]
 			}
@@ -84,20 +88,13 @@ func parseFrames(input string) ([]frame, error) {
 		}
 
 		frames[i].vals = append(frames[i].vals, val)
-		if j == 0 {
-			if val == 10 && i != 9 {
-				i++
-			} else {
-				j++
-			}
-		} else if j == 1 {
-			if i == 9 {
-				j++
-			} else {
-				j = 0
-				i++
-			}
+		if i == 9 || j == 0 && val != 10 {
+			j++
+			continue
 		}
+
+		i++
+		j = 0
 	}
 	return frames, nil
 }

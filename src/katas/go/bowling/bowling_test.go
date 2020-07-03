@@ -20,6 +20,7 @@ func TestResult(t *testing.T) {
 		{"-/-/-/-/-/-/-/-/-/-/-", 100, ""},
 		{"5/5/5/5/5/5/5/5/5/5/5", 150, ""},
 		{"XXXXXXXXXXXX", 300, ""},
+		{"XXXXXXXXXX-/", 30*8 + 20 + 20, ""},
 	}
 
 	for _, tt := range tests {
