@@ -41,6 +41,10 @@ func (f frame) Sum() (r int) {
 	return
 }
 
+func (f frame) isSpare() bool {
+	return f.Sum() == _max
+}
+
 // Score returns the bowling score.
 func Score(sheet string) (int, error) {
 	var result int
@@ -50,15 +54,15 @@ func Score(sheet string) (int, error) {
 		return 0, err
 	}
 
-	var doubleFirst bool
+	var isSpare bool
 
 	for _, frame := range frames {
 		result += frame.Sum()
-		if doubleFirst {
+		if isSpare {
 			result += frame.First()
 		}
 
-		doubleFirst = frame.Sum() >= _max
+		isSpare = frame.Sum() >= _max
 	}
 
 	return result, nil

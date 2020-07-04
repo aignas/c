@@ -78,7 +78,7 @@ func repeatFrame(f frame, n int) []frame {
 	return frames
 }
 
-func Test_newFrame(t *testing.T) {
+func TestFrame(t *testing.T) {
 	want := frame([]int{4, 2})
 	assert.Equal(t, want, newFrame(4, 2))
 	assert.Equal(t, 4, want.First())
@@ -94,4 +94,8 @@ func Test_newFrame(t *testing.T) {
 	appended := empty.Append(4, 2)
 	assert.Equal(t, want, appended)
 	assert.Empty(t, empty, "should be unchanged")
+
+	assert.True(t, newFrame(0, 10).isSpare())
+	assert.True(t, newFrame(5, 5).isSpare())
+	assert.False(t, newFrame(4, 5).isSpare())
 }
