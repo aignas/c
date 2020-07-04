@@ -58,15 +58,22 @@ func Score(sheet string) (int, error) {
 		return 0, err
 	}
 
-	var isSpare bool
+	var (
+		isSpare  bool
+		isStrike bool
+	)
 
 	for _, frame := range frames {
 		result += frame.Sum()
 		if isSpare {
 			result += frame.First()
 		}
+		if isStrike {
+			result += frame.First()
+		}
 
-		isSpare = frame.isSpare()
+		isStrike = frame.isStrike()
+		isSpare = frame.isSpare() || isStrike
 	}
 
 	return result, nil
