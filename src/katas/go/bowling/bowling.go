@@ -45,6 +45,10 @@ func (f frame) isSpare() bool {
 	return len(f) == 2 && f.Sum() == _max
 }
 
+func (f frame) isStrike() bool {
+	return len(f) == 1 && f[0] == _max
+}
+
 // Score returns the bowling score.
 func Score(sheet string) (int, error) {
 	var result int

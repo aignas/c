@@ -89,6 +89,8 @@ func TestFrame(t *testing.T) {
 	var empty frame
 	assert.Equal(t, 0, empty.First())
 	assert.Equal(t, 0, empty.Last())
+	assert.False(t, empty.isStrike())
+	assert.False(t, empty.isSpare())
 	assert.Len(t, empty, 0)
 
 	appended := empty.Append(4, 2)
