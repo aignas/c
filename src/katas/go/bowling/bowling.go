@@ -81,7 +81,7 @@ func parse(sheet string) ([]frame, error) {
 			val = v
 		}
 
-		frames[i].vals = append(frames[i].vals, val)
+		frames[i] = frames[i].Append(val)
 		if i != 9 && (len(frames[i].vals) == 2 || val == _max) {
 			i++
 		}
