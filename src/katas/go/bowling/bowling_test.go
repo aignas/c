@@ -14,6 +14,7 @@ func TestScore(t *testing.T) {
 		wantErr string
 	}{
 		{"--------------------", 0, ""},
+		{"5-5-5-5-5-5-5-5-5-5-", 5 * 10, ""},
 	}
 
 	for _, tt := range tests {
