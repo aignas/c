@@ -77,9 +77,7 @@ func repeatFrame(f frame, n int) []frame {
 }
 
 func Test_newFrame(t *testing.T) {
-	want := frame{
-		vals: []int{4, 2},
-	}
+	want := frame([]int{4, 2})
 	assert.Equal(t, want, newFrame(4, 2))
 	assert.Equal(t, 4, want.First())
 	assert.Equal(t, 2, want.Last())

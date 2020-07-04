@@ -9,34 +9,30 @@ import (
 const _max = 10
 
 func newFrame(vals ...int) frame {
-	return frame{
-		vals: vals,
-	}
+	return frame(vals)
 }
 
-type frame struct {
-	vals []int
-}
+type frame []int
 
-func (f *frame) First() int {
-	if len(f.vals) == 0 {
+func (f frame) First() int {
+	if len(f) == 0 {
 		return 0
 	}
 
-	return f.vals[0]
+	return f[0]
 }
 
-func (f *frame) Last() int {
-	if len(f.vals) == 0 {
+func (f frame) Last() int {
+	if len(f) == 0 {
 		return 0
 	}
 
-	return f.vals[len(f.vals)-1]
+	return f[len(f)-1]
 }
 
-func (f *frame) Append(vals ...int) frame {
-	dest := make([]int, len(f.vals))
-	copy(dest, f.vals)
+func (f frame) Append(vals ...int) frame {
+	dest := make([]int, len(f))
+	copy(dest, f)
 	return newFrame(append(dest, vals...)...)
 }
 
@@ -82,7 +78,7 @@ func parse(sheet string) ([]frame, error) {
 		}
 
 		frames[i] = frames[i].Append(val)
-		if i != 9 && (len(frames[i].vals) == 2 || val == _max) {
+		if i != 9 && (len(frames[i]) == 2 || val == _max) {
 			i++
 		}
 	}
