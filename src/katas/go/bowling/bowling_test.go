@@ -43,6 +43,18 @@ func TestParse(t *testing.T) {
 		wantErr string
 	}{
 		{strings.Repeat("--", 10), make([]frame, 10), ""},
+		{strings.Repeat("3-", 10), []frame{
+			{First: 3},
+			{First: 3},
+			{First: 3},
+			{First: 3},
+			{First: 3},
+			{First: 3},
+			{First: 3},
+			{First: 3},
+			{First: 3},
+			{First: 3},
+		}, ""},
 	}
 
 	for _, tt := range tests {
