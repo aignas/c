@@ -26,6 +26,14 @@ func (f *frame) First() int {
 	return f.vals[0]
 }
 
+func (f *frame) Last() int {
+	if len(f.vals) == 0 {
+		return 0
+	}
+
+	return f.vals[len(f.vals)-1]
+}
+
 // Score returns the bowling score.
 func Score(sheet string) (int, error) {
 	var result int
