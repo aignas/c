@@ -7,7 +7,7 @@ import (
 
 func newFrame(vals ...int) frame {
 	return frame{
-		vals: []int{vals[0]},
+		vals: vals,
 	}
 }
 
