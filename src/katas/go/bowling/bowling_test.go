@@ -17,6 +17,7 @@ func TestScore(t *testing.T) {
 		{"--------------------", 0, ""},
 		{"5-5-5-5-5-5-5-5-5-5-", 5 * 10, ""},
 		{"3-3-3-3-3-3-3-3-3-3-", 3 * 10, ""},
+		{"-/-/-/-/-/-/-/-/-/-/-", 10 * 10, ""},
 		{"bad-input", 0, "bad input: \"bad-input\""},
 	}
 
@@ -45,6 +46,7 @@ func TestParse(t *testing.T) {
 	}{
 		{strings.Repeat("--", 10), make([]frame, 10), ""},
 		{strings.Repeat("3-", 10), repeatFrame(newFrame(3), 10), ""},
+		{strings.Repeat("-/", 10) + "-", repeatFrame(newFrame(0, 10), 10), ""},
 		{"bad-input", nil, "bad input: \"bad-input\""},
 	}
 
