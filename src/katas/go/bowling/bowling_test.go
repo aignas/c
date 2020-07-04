@@ -13,11 +13,7 @@ func TestScore(t *testing.T) {
 		want    int
 		wantErr string
 	}{
-		{
-			input:   "--------------------",
-			want:    0,
-			wantErr: "",
-		},
+		{"--------------------", 0, ""},
 	}
 
 	for _, tt := range tests {
