@@ -1,6 +1,7 @@
 package bowling
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -41,7 +42,7 @@ func TestParse(t *testing.T) {
 		want    []frame
 		wantErr string
 	}{
-		{"--------------------", make([]frame, 10), ""},
+		{strings.Repeat("--", 10), make([]frame, 10), ""},
 	}
 
 	for _, tt := range tests {
