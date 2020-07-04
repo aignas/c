@@ -43,18 +43,7 @@ func TestParse(t *testing.T) {
 		wantErr string
 	}{
 		{strings.Repeat("--", 10), make([]frame, 10), ""},
-		{strings.Repeat("3-", 10), []frame{
-			{First: 3},
-			{First: 3},
-			{First: 3},
-			{First: 3},
-			{First: 3},
-			{First: 3},
-			{First: 3},
-			{First: 3},
-			{First: 3},
-			{First: 3},
-		}, ""},
+		{strings.Repeat("3-", 10), repeatFrame(frame{First: 3}, 10), ""},
 	}
 
 	for _, tt := range tests {
@@ -71,4 +60,12 @@ func TestParse(t *testing.T) {
 			assert.NoError(t, err)
 		})
 	}
+}
+
+func repeatFrame(f frame, n int) []frame {
+	frames := make([]frame, n)
+	for i := range frames {
+		frames[i] = f
+	}
+	return frames
 }
