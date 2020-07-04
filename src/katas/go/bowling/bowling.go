@@ -51,7 +51,7 @@ func parse(sheet string) ([]frame, error) {
 			if err != nil {
 				return nil, fmt.Errorf("bad input: %q", sheet)
 			}
-			frames[i].vals = []int{v}
+			frames[i].vals = append(frames[i].vals, v)
 		}
 		if i != 9 && len(frames[i].vals) == 2 {
 			i++
