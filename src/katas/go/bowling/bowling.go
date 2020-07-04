@@ -50,8 +50,15 @@ func Score(sheet string) (int, error) {
 		return 0, err
 	}
 
+	var doubleFirst bool
+
 	for _, frame := range frames {
 		result += frame.Sum()
+		if doubleFirst {
+			result += frame.First()
+		}
+
+		doubleFirst = frame.Sum() >= _max
 	}
 
 	return result, nil
