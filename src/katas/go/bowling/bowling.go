@@ -2,6 +2,12 @@ package bowling
 
 import "strconv"
 
+func newFrame(first int) frame {
+	return frame{
+		First: first,
+	}
+}
+
 type frame struct {
 	First int
 }
