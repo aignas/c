@@ -51,7 +51,7 @@ func Score(sheet string) (int, error) {
 	}
 
 	for _, frame := range frames {
-		result += frame.First() + frame[1]
+		result += frame.Sum()
 	}
 
 	return result, nil
