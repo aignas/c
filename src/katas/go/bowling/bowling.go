@@ -34,6 +34,12 @@ func (f *frame) Last() int {
 	return f.vals[len(f.vals)-1]
 }
 
+func (f *frame) Append(vals ...int) frame {
+	dest := make([]int, len(f.vals))
+	copy(dest, f.vals)
+	return newFrame(append(dest, vals...)...)
+}
+
 // Score returns the bowling score.
 func Score(sheet string) (int, error) {
 	var result int
