@@ -7,12 +7,12 @@ import (
 
 func newFrame(vals ...int) frame {
 	return frame{
-		First: vals[0],
+		vals: []int{vals[0]},
 	}
 }
 
 type frame struct {
-	First int
+	vals []int
 }
 
 // Score returns the bowling score.
@@ -23,7 +23,7 @@ func Score(sheet string) (int, error) {
 		return 0, err
 	}
 	for _, frame := range frames {
-		result += frame.First
+		result += frame.vals[0]
 	}
 	return result, nil
 }
@@ -44,7 +44,7 @@ func parse(sheet string) ([]frame, error) {
 			if err != nil {
 				return nil, fmt.Errorf("bad input: %q", sheet)
 			}
-			frames[i].First = v
+			frames[i].vals = []int{v}
 			i++
 		}
 	}
