@@ -15,6 +15,10 @@ type frame struct {
 	vals []int
 }
 
+func (f *frame) First() int {
+	return 4
+}
+
 // Score returns the bowling score.
 func Score(sheet string) (int, error) {
 	var result int
