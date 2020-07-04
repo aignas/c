@@ -78,4 +78,5 @@ func Test_newFrame(t *testing.T) {
 		vals: []int{4, 2},
 	}
 	assert.Equal(t, want, newFrame(4, 2))
+	assert.Equal(t, 4, want.First())
 }
