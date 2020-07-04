@@ -2,7 +2,9 @@ package bowling
 
 import "strconv"
 
-type frame struct{}
+type frame struct {
+	First int
+}
 
 // Score returns the bowling score.
 func Score(sheet string) (int, error) {
@@ -19,6 +21,20 @@ func Score(sheet string) (int, error) {
 	return result, nil
 }
 
-func parse(string) ([]frame, error) {
-	return make([]frame, 10), nil
+func parse(sheet string) ([]frame, error) {
+	var (
+		frames = make([]frame, 10)
+		i      int
+	)
+	for _, throw := range sheet {
+		switch throw {
+		case '-':
+			// nothing
+		default:
+			v, _ := strconv.Atoi(string(throw))
+			frames[i].First = v
+			i++
+		}
+	}
+	return frames, nil
 }
