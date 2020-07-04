@@ -45,6 +45,7 @@ func TestParse(t *testing.T) {
 	}{
 		{strings.Repeat("--", 10), repeatFrame(newFrame(0, 0), 10), ""},
 		{strings.Repeat("3-", 10), repeatFrame(newFrame(3, 0), 10), ""},
+		{strings.Repeat("45", 10), repeatFrame(newFrame(4, 5), 10), ""},
 		{strings.Repeat("-/", 10) + "-", append(repeatFrame(newFrame(0, 10), 9), newFrame(0, 10, 0)), ""},
 		{"bad-input", nil, "bad input: \"bad-input\""},
 	}
