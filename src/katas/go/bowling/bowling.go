@@ -27,7 +27,7 @@ func Score(sheet string) (int, error) {
 		return 0, err
 	}
 	for _, frame := range frames {
-		result += frame.vals[0]
+		result += frame.First()
 	}
 	return result, nil
 }
