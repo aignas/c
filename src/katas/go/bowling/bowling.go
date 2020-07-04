@@ -5,98 +5,112 @@ import (
 	"strconv"
 )
 
+// _max is the number of pins that we can hit at most during one throw.
+const _max = 10
+
 func newFrame(vals ...int) frame {
-	return frame{
-		vals: vals,
-	}
+	return frame(vals)
 }
 
-type frame struct {
-	vals []int
-}
+type frame []int
 
-func (f *frame) Sum() int {
-	var r int
-	for _, v := range f.vals {
-		r += v
-	}
-	return r
-}
-
-func (f *frame) isSpare() bool {
-	return len(f.vals) == 2 && f.Sum() == 10
-}
-
-func (f *frame) isStrike() bool {
-	return len(f.vals) == 1 && f.First() == 10
-}
-
-func (f *frame) First() int {
-	return f.vals[0]
-}
-
-// Result calculates the result of a bowling game.
-func Result(input string) (int, error) {
-	frames, err := parseFrames(input)
-	if err != nil {
-		return 0, fmt.Errorf("parsing frames: %s", err)
+func (f frame) First() int {
+	if len(f) == 0 {
+		return 0
 	}
 
+	return f[0]
+}
+
+func (f frame) Last() int {
+	if len(f) == 0 {
+		return 0
+	}
+
+	return f[len(f)-1]
+}
+
+func (f frame) Append(vals ...int) frame {
+	return append(f, vals...)
+}
+
+func (f frame) Sum() (r int) {
+	for _, i := range f {
+		r += i
+	}
+	return
+}
+
+func (f frame) isSpare() bool {
+	return len(f) == 2 && f.Sum() == _max
+}
+
+func (f frame) isStrike() bool {
+	return len(f) == 1 && f[0] == _max
+}
+
+// Score returns the bowling score.
+func Score(sheet string) (int, error) {
 	var result int
-	for i, frame := range frames {
-		result += frame.Sum()
 
-		if frame.isSpare() {
-			result += frames[i+1].First()
+	frames, err := parse(sheet)
+	if err != nil {
+		return 0, err
+	}
+
+	var (
+		doubleFirst   bool
+		doubleNextTwo bool
+	)
+
+	for _, frame := range frames {
+		result += frame.Sum()
+		if doubleFirst {
+			result += frame.First()
 		}
-		if frame.isStrike() {
-			next := frames[i+1]
-			result += next.First()
-			if next.isStrike() {
-				result += frames[i+2].First()
-			} else {
-				result += next.vals[1]
+		if doubleNextTwo {
+			result += frame.First()
+			if len(frame) > 1 {
+				result += frame[1]
 			}
 		}
+
+		doubleFirst = frame.isSpare() || (doubleNextTwo && frame.isStrike())
+		doubleNextTwo = frame.isStrike()
 	}
+
 	return result, nil
 }
 
-func parseFrames(input string) ([]frame, error) {
+func parse(sheet string) ([]frame, error) {
 	var (
-		frames []frame
-		vals   []int
-		i, j   int
+		frames = make([]frame, 10)
+		i      int
 	)
 
-	for _, r := range input {
+	for _, throw := range sheet {
 		var val int
 
-		switch r {
+		switch throw {
 		case '-':
 			val = 0
-		case '/':
-			val = 10 - vals[j-1]
 		case 'X':
-			val = 10
+			val = _max
+		case '/':
+			val = _max - frames[i].Last()
 		default:
-			v, err := strconv.Atoi(string(r))
+			v, err := strconv.Atoi(string(throw))
 			if err != nil {
-				return nil, fmt.Errorf("bad input: %q", input)
+				return nil, fmt.Errorf("bad input: %q", sheet)
 			}
+
 			val = v
 		}
 
-		vals = append(vals, val)
-		if i == 9 || j == 0 && val != 10 {
-			j++
-			continue
+		frames[i] = frames[i].Append(val)
+		if i != 9 && (len(frames[i]) == 2 || val == _max) {
+			i++
 		}
-
-		frames = append(frames, newFrame(vals...))
-		vals = vals[:0]
-		i++
-		j = 0
 	}
-	return append(frames, newFrame(vals...)), nil
+	return frames, nil
 }
