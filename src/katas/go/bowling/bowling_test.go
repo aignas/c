@@ -83,6 +83,7 @@ func Test_newFrame(t *testing.T) {
 	assert.Equal(t, 4, want.First())
 	assert.Equal(t, 2, want.Last())
 	assert.Len(t, want, 2)
+	assert.Equal(t, 6, want.Sum())
 
 	var empty frame
 	assert.Equal(t, 0, empty.First())
