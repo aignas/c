@@ -54,6 +54,8 @@ func parse(sheet string) ([]frame, error) {
 		switch throw {
 		case '-':
 			val = 0
+		case 'X':
+			val = _max
 		case '/':
 			val = _max - frames[i].First()
 		default:
@@ -66,7 +68,7 @@ func parse(sheet string) ([]frame, error) {
 		}
 
 		frames[i].vals = append(frames[i].vals, val)
-		if i != 9 && len(frames[i].vals) == 2 {
+		if i != 9 && (len(frames[i].vals) == 2 || val == _max) {
 			i++
 		}
 	}
