@@ -87,4 +87,8 @@ func Test_newFrame(t *testing.T) {
 	var empty frame
 	assert.Equal(t, 0, empty.First())
 	assert.Equal(t, 0, empty.Last())
+
+	appended := empty.Append(4, 2)
+	assert.Equal(t, want, appended)
+	assert.Empty(t, empty, "should be unchanged")
 }
