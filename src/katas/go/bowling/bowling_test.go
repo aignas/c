@@ -43,9 +43,9 @@ func TestParse(t *testing.T) {
 		want    []frame
 		wantErr string
 	}{
-		{strings.Repeat("--", 10), make([]frame, 10), ""},
-		{strings.Repeat("3-", 10), repeatFrame(newFrame(3), 10), ""},
-		{strings.Repeat("-/", 10) + "-", repeatFrame(newFrame(0, 10), 10), ""},
+		{strings.Repeat("--", 10), repeatFrame(newFrame(0, 0), 10), ""},
+		{strings.Repeat("3-", 10), repeatFrame(newFrame(3, 0), 10), ""},
+		{strings.Repeat("-/", 10) + "-", append(repeatFrame(newFrame(0, 10), 9), newFrame(0, 10, 0)), ""},
 		{"bad-input", nil, "bad input: \"bad-input\""},
 	}
 
