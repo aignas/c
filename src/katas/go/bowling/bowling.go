@@ -31,9 +31,7 @@ func (f frame) Last() int {
 }
 
 func (f frame) Append(vals ...int) frame {
-	dest := make([]int, len(f))
-	copy(dest, f)
-	return newFrame(append(dest, vals...)...)
+	return append(f, vals...)
 }
 
 // Score returns the bowling score.
