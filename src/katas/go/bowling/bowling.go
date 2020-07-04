@@ -34,6 +34,13 @@ func (f frame) Append(vals ...int) frame {
 	return append(f, vals...)
 }
 
+func (f frame) Sum() (r int) {
+	for _, i := range f {
+		r += i
+	}
+	return
+}
+
 // Score returns the bowling score.
 func Score(sheet string) (int, error) {
 	var result int
