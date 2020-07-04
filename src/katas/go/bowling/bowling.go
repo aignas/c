@@ -5,9 +5,9 @@ import (
 	"strconv"
 )
 
-func newFrame(first int) frame {
+func newFrame(vals ...int) frame {
 	return frame{
-		First: first,
+		First: vals[0],
 	}
 }
 
@@ -36,6 +36,8 @@ func parse(sheet string) ([]frame, error) {
 	for _, throw := range sheet {
 		switch throw {
 		case '-':
+			// nothing
+		case '/':
 			// nothing
 		default:
 			v, err := strconv.Atoi(string(throw))
