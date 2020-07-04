@@ -62,7 +62,7 @@ func Score(sheet string) (int, error) {
 			result += frame.First()
 		}
 
-		isSpare = frame.Sum() >= _max
+		isSpare = frame.isSpare()
 	}
 
 	return result, nil
