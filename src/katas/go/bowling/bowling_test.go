@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestResult(t *testing.T) {
+func TestScore(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		input   string
@@ -25,7 +25,7 @@ func TestResult(t *testing.T) {
 		t.Run(tt.input, func(t *testing.T) {
 			t.Parallel()
 
-			got, err := Result(tt.input)
+			got, err := Score(tt.input)
 			assert.Equal(t, tt.want, got)
 			if tt.wantErr != "" {
 				assert.EqualError(t, err, tt.wantErr)
