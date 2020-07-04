@@ -41,18 +41,20 @@ func parse(sheet string) ([]frame, error) {
 		i      int
 	)
 	for _, throw := range sheet {
+		var val int
 		switch throw {
 		case '-':
-			frames[i].vals = append(frames[i].vals, 0)
+			val = 0
 		case '/':
-			frames[i].vals = append(frames[i].vals, 10-frames[i].First())
+			val = 10 - frames[i].First()
 		default:
 			v, err := strconv.Atoi(string(throw))
 			if err != nil {
 				return nil, fmt.Errorf("bad input: %q", sheet)
 			}
-			frames[i].vals = append(frames[i].vals, v)
+			val = v
 		}
+		frames[i].vals = append(frames[i].vals, val)
 		if i != 9 && len(frames[i].vals) == 2 {
 			i++
 		}
