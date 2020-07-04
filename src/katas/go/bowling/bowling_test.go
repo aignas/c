@@ -98,4 +98,5 @@ func TestFrame(t *testing.T) {
 	assert.True(t, newFrame(0, 10).isSpare())
 	assert.True(t, newFrame(5, 5).isSpare())
 	assert.False(t, newFrame(4, 5).isSpare())
+	assert.False(t, newFrame(10, 0, 0).isSpare())
 }

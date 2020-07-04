@@ -42,7 +42,7 @@ func (f frame) Sum() (r int) {
 }
 
 func (f frame) isSpare() bool {
-	return f.Sum() == _max
+	return len(f) == 2 && f.Sum() == _max
 }
 
 // Score returns the bowling score.
