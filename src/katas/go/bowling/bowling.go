@@ -16,7 +16,10 @@ type frame struct {
 }
 
 func (f *frame) First() int {
-	return 4
+	if len(f.vals) == 0 {
+		return 0
+	}
+	return f.vals[0]
 }
 
 // Score returns the bowling score.
