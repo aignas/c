@@ -83,12 +83,12 @@ func Test_newFrame(t *testing.T) {
 	assert.Equal(t, want, newFrame(4, 2))
 	assert.Equal(t, 4, want.First())
 	assert.Equal(t, 2, want.Last())
-	assert.Len(t, 2, want)
+	assert.Len(t, want, 2)
 
 	var empty frame
 	assert.Equal(t, 0, empty.First())
 	assert.Equal(t, 0, empty.Last())
-	assert.Len(t, 0, empty)
+	assert.Len(t, empty, 0)
 
 	appended := empty.Append(4, 2)
 	assert.Equal(t, want, appended)
