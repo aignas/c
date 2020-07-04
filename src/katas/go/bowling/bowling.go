@@ -57,7 +57,7 @@ func parse(sheet string) ([]frame, error) {
 		case 'X':
 			val = _max
 		case '/':
-			val = _max - frames[i].First()
+			val = _max - frames[i].Last()
 		default:
 			v, err := strconv.Atoi(string(throw))
 			if err != nil {
