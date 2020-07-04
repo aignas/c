@@ -70,10 +70,13 @@ func Score(sheet string) (int, error) {
 		}
 		if isStrike {
 			result += frame.First()
+			if len(frame) > 1 {
+				result += frame[1]
+			}
 		}
 
+		isSpare = frame.isSpare() || (isStrike && frame.isStrike())
 		isStrike = frame.isStrike()
-		isSpare = frame.isSpare() || isStrike
 	}
 
 	return result, nil
