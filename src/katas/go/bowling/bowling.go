@@ -6,6 +6,22 @@ func (*frame) Sum() int {
 	return 0
 }
 
+func (*frame) First() int {
+	return 0
+}
+
+func (*frame) Head() int {
+	return 0
+}
+
+func (*frame) IsSpare() bool {
+	return false
+}
+
+func (*frame) IsStrike() bool {
+	return false
+}
+
 // Score returns bowling score
 func Score(input string) (int, error) {
 	frames, err := parse(input)
@@ -13,11 +29,29 @@ func Score(input string) (int, error) {
 		return 0, err
 	}
 
-	var result int
+	var (
+		result        int
+		doubleFirst   bool
+		doubleNextTwo bool
+	)
+
 	for _, frame := range frames {
 		result += frame.Sum()
+		if doubleFirst {
+			result += frame.First()
+		}
+
+		if doubleNextTwo {
+			if frame.IsStrike() {
+				result += frame.First()
+			} else {
+				result += frame.Head()
+			}
+		}
 
 		// we need to add extras
+		doubleFirst = frame.IsSpare() || doubleNextTwo && frame.IsStrike()
+		doubleNextTwo = frame.IsStrike()
 	}
 
 	return result, nil
