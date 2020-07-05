@@ -1,24 +1,24 @@
 package bowling
 
-type frame struct{}
+type frame []int
 
-func (*frame) Sum() int {
+func (frame) Sum() int {
 	return 0
 }
 
-func (*frame) First() int {
+func (frame) First() int {
 	return 0
 }
 
-func (*frame) Head() int {
+func (frame) Head() int {
 	return 0
 }
 
-func (*frame) IsSpare() bool {
+func (frame) IsSpare() bool {
 	return false
 }
 
-func (*frame) IsStrike() bool {
+func (frame) IsStrike() bool {
 	return false
 }
 
