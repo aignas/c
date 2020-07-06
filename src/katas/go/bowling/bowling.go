@@ -9,6 +9,7 @@ import (
 // _max is the number of pins
 const (
 	_max             = 10
+	_frameCount      = 10
 	_strikeFrameSize = 1
 	_frameSize       = 2
 )
@@ -56,10 +57,10 @@ func sum(frames []frame) int {
 
 // frames returns frames
 func frames(throws []int) ([]frame, error) {
-	frames := make([]frame, 0, 10)
+	frames := make([]frame, 0, _frameCount)
 
 	for {
-		if len(frames) == 10 {
+		if len(frames) == _frameCount {
 			break
 		}
 
@@ -75,7 +76,7 @@ func frames(throws []int) ([]frame, error) {
 		}
 
 		frames = append(frames, f)
-		if len(frames) == 10 && f.Score() > _max && len(throws) == _frameSize+1 {
+		if len(frames) == _frameCount && f.Score() > _max && len(throws) == _frameSize+1 {
 			throws = nil
 		} else {
 			throws = throws[f.Size():]
