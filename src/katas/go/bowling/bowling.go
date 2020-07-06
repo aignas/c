@@ -1,116 +1,141 @@
 package bowling
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
 )
 
-// _max is the number of pins that we can hit at most during one throw.
-const _max = 10
+// _max is the number of pins
+const (
+	_max             = 10
+	_frameCount      = 10
+	_strikeFrameSize = 1
+	_frameSize       = 2
+)
 
-func newFrame(vals ...int) frame {
-	return frame(vals)
-}
-
+// the length of the frame is either 2 or 3 and is enforced by the constructor
 type frame []int
 
-func (f frame) First() int {
-	if len(f) == 0 {
-		return 0
+// newFrame returns the frame and the number of throws in this frame
+func newFrame(s []int) (frame, error) {
+	if len(s) != 2 && len(s) != 3 {
+		return nil, fmt.Errorf("input must be 2 or 3 throws, got %d", len(s))
 	}
 
-	return f[0]
+	return frame(s), nil
 }
 
-func (f frame) Last() int {
-	if len(f) == 0 {
-		return 0
+func (f frame) Score() int {
+	score := f[0] + f[1]
+	if score >= _max {
+		score += f[2]
 	}
 
-	return f[len(f)-1]
+	return score
 }
 
-func (f frame) Append(vals ...int) frame {
-	return append(f, vals...)
-}
-
-func (f frame) Sum() (r int) {
-	for _, i := range f {
-		r += i
+func (f frame) Size() int {
+	if f[0] == _max {
+		return _strikeFrameSize
 	}
-	return
+
+	return _frameSize
 }
 
-func (f frame) isSpare() bool {
-	return len(f) == 2 && f.Sum() == _max
-}
-
-func (f frame) isStrike() bool {
-	return len(f) == 1 && f[0] == _max
-}
-
-// Score returns the bowling score.
-func Score(sheet string) (int, error) {
-	var result int
-
-	frames, err := parse(sheet)
+// Score returns bowling score
+func Score(input string) (int, error) {
+	throws, err := parse(input)
 	if err != nil {
 		return 0, err
 	}
 
-	var (
-		doubleFirst   bool
-		doubleNextTwo bool
-	)
+	frames, err := frames(throws)
+	if err != nil {
+		return 0, err
+	}
+
+	return sum(frames), nil
+}
+
+func sum(frames []frame) int {
+	var result int
 
 	for _, frame := range frames {
-		result += frame.Sum()
-		if doubleFirst {
-			result += frame.First()
-		}
-		if doubleNextTwo {
-			result += frame.First()
-			if len(frame) > 1 {
-				result += frame[1]
-			}
+		result += frame.Score()
+	}
+
+	return result
+}
+
+// frames returns frames
+func frames(throws []int) ([]frame, error) {
+	frames := make([]frame, 0, _frameCount)
+
+	for len(throws) != 0 {
+		var input []int
+		if len(throws) > _frameSize+1 {
+			input = throws[:_frameSize+1]
+		} else {
+			input = throws
 		}
 
-		doubleFirst = frame.isSpare() || (doubleNextTwo && frame.isStrike())
-		doubleNextTwo = frame.isStrike()
+		f, err := newFrame(input)
+		if err != nil {
+			return nil, err
+		}
+
+		frames = append(frames, f)
+
+		switch {
+		case len(frames) == _frameCount && f.Score() > _max:
+			throws = throws[_frameSize+1:]
+		case len(frames) == _frameCount:
+			throws = throws[_frameSize:]
+		default:
+			throws = throws[f.Size():]
+		}
+	}
+
+	if len(frames) < _frameCount {
+		return nil, errors.New("too few throws")
+	}
+
+	if len(frames) > _frameCount {
+		return nil, errors.New("too many throws")
+	}
+
+	return frames, nil
+}
+
+func parse(input string) ([]int, error) {
+	result := make([]int, len(input))
+
+	var first bool
+	for i, r := range input {
+		first = !first
+
+		switch r {
+		case '-':
+			// nothing
+		case '/':
+			if first {
+				return nil, errors.New("no spare on first throw")
+			}
+
+			result[i] = _max - result[i-1]
+		case 'X':
+			result[i] = _max
+			first = false
+		default:
+			v, err := strconv.Atoi(string(r))
+			if err != nil {
+				return nil, fmt.Errorf("invalid input: %q", r)
+			}
+
+			result[i] = v
+		}
 	}
 
 	return result, nil
-}
-
-func parse(sheet string) ([]frame, error) {
-	var (
-		frames = make([]frame, 10)
-		i      int
-	)
-
-	for _, throw := range sheet {
-		var val int
-
-		switch throw {
-		case '-':
-			val = 0
-		case 'X':
-			val = _max
-		case '/':
-			val = _max - frames[i].Last()
-		default:
-			v, err := strconv.Atoi(string(throw))
-			if err != nil {
-				return nil, fmt.Errorf("bad input: %q", sheet)
-			}
-
-			val = v
-		}
-
-		frames[i] = frames[i].Append(val)
-		if i != 9 && (len(frames[i]) == 2 || val == _max) {
-			i++
-		}
-	}
-	return frames, nil
 }
