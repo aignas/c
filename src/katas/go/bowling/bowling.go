@@ -18,7 +18,7 @@ type frame []int
 
 func (f frame) Score() int {
 	score := f[0] + f[1]
-	if score == _max {
+	if score >= _max {
 		score += f[2]
 	}
 
