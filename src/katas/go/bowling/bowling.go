@@ -62,7 +62,7 @@ func parse(input string) ([]int, error) {
 		case '-':
 			// nothing
 		case '/':
-			if i == 0 {
+			if i == 0 || result[i-1] == 10 {
 				return nil, errors.New("no spare on first throw")
 			}
 			val = 10 - result[i-1]
