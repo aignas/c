@@ -13,7 +13,11 @@ const _max = 10
 type frame []int
 
 func (f frame) Score() int {
-	return f[0] + f[1]
+	score := f[0] + f[1]
+	if score == 10 {
+		score += f[2]
+	}
+	return score
 }
 
 func (f frame) Size() int {
