@@ -6,6 +6,9 @@ import (
 	"strconv"
 )
 
+// _max is the number of pins
+const _max = 10
+
 type frame []int
 
 func (frame) Score() int {
@@ -61,7 +64,6 @@ func parse(input string) ([]int, error) {
 	for i, r := range input {
 		first = !first
 
-		var val int
 		switch r {
 		case '-':
 			// nothing
@@ -69,19 +71,21 @@ func parse(input string) ([]int, error) {
 			if first {
 				return nil, errors.New("no spare on first throw")
 			}
-			val = 10 - result[i-1]
+
+			result[i] = _max - result[i-1]
 		case 'X':
-			val = 10
+			result[i] = _max
 			first = false
 		default:
 			v, err := strconv.Atoi(string(r))
 			if err != nil {
 				return nil, fmt.Errorf("invalid input: %q", r)
 			}
-			val = v
+
+			result[i] = v
 		}
-		result[i] = val
 	}
+
 	return result, nil
 }
 
