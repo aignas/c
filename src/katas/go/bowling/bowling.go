@@ -9,13 +9,17 @@ import (
 // _max is the number of pins
 const _max = 10
 
+// the length of the frame is either 2 or 3 and is enforced by the constructor
 type frame []int
 
 func (frame) Score() int {
 	return 0
 }
 
-func (frame) Size() int {
+func (f frame) Size() int {
+	if f[0] == 10 {
+		return 1
+	}
 	return 2
 }
 
