@@ -44,7 +44,7 @@ func TestParse(t *testing.T) {
 		want    []int
 		wantErr string
 	}{
-		{"--", nil, ""},
+		{"--", make([]int, 2), ""},
 	}
 
 	for _, tt := range tests {
