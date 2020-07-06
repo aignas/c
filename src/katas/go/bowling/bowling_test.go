@@ -134,3 +134,28 @@ func Test_frame_Size(t *testing.T) {
 		})
 	}
 }
+
+func Test_frame_Score(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		msg    string
+		throws []int
+		want   int
+	}{
+		{"simple", []int{4, 5, 4}, 9},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.msg, func(t *testing.T) {
+			t.Parallel()
+
+			frame, err := newFrame(tt.throws)
+			require.NoError(t, err)
+
+			got := frame.Score()
+
+			assert.Equal(t, tt.want, got)
+		})
+	}
+}
