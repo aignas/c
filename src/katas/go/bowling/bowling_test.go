@@ -48,6 +48,7 @@ func TestParse(t *testing.T) {
 		{"45", []int{4, 5}, ""},
 		{"4/", []int{4, 6}, ""},
 		{"X", []int{10}, ""},
+		{"4y", nil, "invalid input: 'y'"},
 	}
 
 	for _, tt := range tests {
