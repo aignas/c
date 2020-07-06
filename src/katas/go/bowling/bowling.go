@@ -12,7 +12,7 @@ func (frame) Size() int {
 
 // Score returns bowling score
 func Score(input string) (int, error) {
-	throws, err := parseThrows(input)
+	throws, err := parse(input)
 	if err != nil {
 		return 0, err
 	}
@@ -48,7 +48,7 @@ func frames(throws []int) []frame {
 	return frames
 }
 
-func parseThrows(input string) ([]int, error) {
+func parse(input string) ([]int, error) {
 	return make([]int, len(input)), nil
 }
 
