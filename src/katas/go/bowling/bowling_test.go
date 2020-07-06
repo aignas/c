@@ -117,6 +117,7 @@ func Test_frame_Size(t *testing.T) {
 		want   int
 	}{
 		{"simple", []int{4, 5, 4}, 2},
+		{"strike", []int{10, 5, 4}, 1},
 	}
 
 	for _, tt := range tests {
