@@ -56,17 +56,26 @@ func sum(frames []frame) int {
 
 // frames returns frames
 func frames(throws []int) ([]frame, error) {
-	var j int
+	frames := make([]frame, 0, 10)
 
-	frames := make([]frame, 10)
-	for i := range frames {
-		if i == len(frames)-1 {
-			frames[i], _ = newFrame(throws[j:])
-		} else {
-			frames[i], _ = newFrame(throws[j : j+3])
+	for {
+		if len(frames) == 10 {
+			break
 		}
 
-		j += frames[i].Size()
+		if len(throws) == 0 {
+			return nil, errors.New("too short")
+		}
+
+		var f frame
+		if len(throws) > 3 {
+			f, _ = newFrame(throws[:3])
+		} else {
+			f, _ = newFrame(throws)
+		}
+
+		frames = append(frames, f)
+		throws = throws[f.Size():]
 	}
 
 	return frames, nil
