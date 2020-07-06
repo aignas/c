@@ -46,9 +46,9 @@ func frames(throws []int) []frame {
 	frames := make([]frame, 10)
 	for i := range frames {
 		if i == len(frames)-1 {
-			frames[i] = newFrame(throws[j:])
+			frames[i], _ = newFrame(throws[j:])
 		} else {
-			frames[i] = newFrame(throws[j : j+3])
+			frames[i], _ = newFrame(throws[j : j+3])
 		}
 
 		j += frames[i].Size()
@@ -90,6 +90,6 @@ func parse(input string) ([]int, error) {
 }
 
 // newFrame returns the frame and the number of throws in this frame
-func newFrame(s []int) frame {
-	return frame(s)
+func newFrame(s []int) (frame, error) {
+	return frame(s), nil
 }
