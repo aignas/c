@@ -12,8 +12,8 @@ const _max = 10
 // the length of the frame is either 2 or 3 and is enforced by the constructor
 type frame []int
 
-func (frame) Score() int {
-	return 0
+func (f frame) Score() int {
+	return f[0] + f[1]
 }
 
 func (f frame) Size() int {
