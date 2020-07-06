@@ -6,46 +6,46 @@ func (frame) Score() int {
 	return 0
 }
 
-func (frame) Len() int {
+func (frame) Size() int {
 	return 0
 }
 
 // Score returns bowling score
 func Score(input string) (int, error) {
-	frames, err := parse(input)
+	throws, err := parseThrows(input)
 	if err != nil {
 		return 0, err
 	}
 
+	return sum(frames(throws)), nil
+}
+
+func sum(frames []frame) int {
 	var result int
 
 	for _, frame := range frames {
 		result += frame.Score()
 	}
 
-	return result, nil
+	return result
 }
 
-// parse returns frames
-func parse(input string) ([]frame, error) {
-	throws, err := parseThrows(input)
-	if err != nil {
-		return nil, err
-	}
-
+// frames returns frames
+func frames(throws []int) []frame {
 	var j int
+
 	frames := make([]frame, 10)
 	for i := range frames {
-		if i == 9 {
+		if i == len(frames)-1 {
 			frames[i] = newFrame(throws[j:])
 		} else {
 			frames[i] = newFrame(throws[j : j+3])
 		}
 
-		j += frames[i].Len()
+		j += frames[i].Size()
 	}
 
-	return nil, nil
+	return frames
 }
 
 func parseThrows(input string) ([]int, error) {
