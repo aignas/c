@@ -7,7 +7,11 @@ import (
 )
 
 // _max is the number of pins
-const _max = 10
+const (
+	_max             = 10
+	_strikeFrameSize = 1
+	_frameSize       = 2
+)
 
 // the length of the frame is either 2 or 3 and is enforced by the constructor
 type frame []int
@@ -23,10 +27,10 @@ func (f frame) Score() int {
 
 func (f frame) Size() int {
 	if f[0] == _max {
-		return 1
+		return _strikeFrameSize
 	}
 
-	return 2
+	return _frameSize
 }
 
 // Score returns bowling score
