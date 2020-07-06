@@ -75,7 +75,7 @@ func frames(throws []int) ([]frame, error) {
 		}
 
 		frames = append(frames, f)
-		if len(frames) == 10 && f.Score() > _max {
+		if len(frames) == 10 && f.Score() > _max && len(throws) == 3 {
 			throws = nil
 		} else {
 			throws = throws[f.Size():]
