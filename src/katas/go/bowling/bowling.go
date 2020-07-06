@@ -17,13 +17,15 @@ func (f frame) Score() int {
 	if score == _max {
 		score += f[2]
 	}
+
 	return score
 }
 
 func (f frame) Size() int {
-	if f[0] == 10 {
+	if f[0] == _max {
 		return 1
 	}
+
 	return 2
 }
 
