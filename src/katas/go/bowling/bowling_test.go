@@ -14,11 +14,8 @@ func TestScore(t *testing.T) {
 		want    int
 		wantErr string
 	}{
-		{
-			input:   strings.Repeat("-", 20),
-			want:    0,
-			wantErr: "",
-		},
+		{strings.Repeat("-", 20), 0, ""},
+		{strings.Repeat("5-", 10), 50, ""},
 	}
 
 	for _, tt := range tests {
