@@ -43,10 +43,9 @@ func Test_frames_errors(t *testing.T) {
 		input   string
 		wantErr string
 	}{
-		{
-			input:   "--",
-			wantErr: "too short",
-		},
+		{"--", "too few throws"},
+		{strings.Repeat("-", 21), "too many throws"},
+		{strings.Repeat("X", 13), "too many throws"},
 	}
 
 	for _, tt := range tests {

@@ -64,7 +64,7 @@ func frames(throws []int) ([]frame, error) {
 		}
 
 		if len(throws) == 0 {
-			return nil, errors.New("too short")
+			return nil, errors.New("too few throws")
 		}
 
 		var f frame
@@ -75,7 +75,15 @@ func frames(throws []int) ([]frame, error) {
 		}
 
 		frames = append(frames, f)
-		throws = throws[f.Size():]
+		if len(frames) == 10 && f.Score() > _max {
+			throws = nil
+		} else {
+			throws = throws[f.Size():]
+		}
+	}
+
+	if len(throws) != 0 {
+		return nil, errors.New("too many throws")
 	}
 
 	return frames, nil
