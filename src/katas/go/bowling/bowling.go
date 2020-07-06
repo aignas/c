@@ -74,11 +74,12 @@ func frames(throws []int) ([]frame, error) {
 
 		frames = append(frames, f)
 
-		if len(frames) == _frameCount && f.Score() > _max {
+		switch {
+		case len(frames) == _frameCount && f.Score() > _max:
 			throws = throws[_frameSize+1:]
-		} else if len(frames) == _frameCount {
+		case len(frames) == _frameCount:
 			throws = throws[_frameSize:]
-		} else {
+		default:
 			throws = throws[f.Size():]
 		}
 	}
