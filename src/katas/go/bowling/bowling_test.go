@@ -18,6 +18,7 @@ func TestScore(t *testing.T) {
 		{strings.Repeat("-", 20), 0, ""},
 		{strings.Repeat("5-", 10), 50, ""},
 		{strings.Repeat("5/", 10) + "5", 150, ""},
+		{strings.Repeat("X", 12), 300, ""},
 	}
 
 	for _, tt := range tests {
