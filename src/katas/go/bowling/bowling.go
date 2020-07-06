@@ -108,5 +108,6 @@ func newFrame(s []int) (frame, error) {
 	if len(s) != 2 && len(s) != 3 {
 		return nil, errors.New("input must be 2 or 3 throws")
 	}
+
 	return frame(s), nil
 }
