@@ -68,14 +68,14 @@ func frames(throws []int) ([]frame, error) {
 		}
 
 		var f frame
-		if len(throws) > 3 {
-			f, _ = newFrame(throws[:3])
+		if len(throws) > _frameSize+1 {
+			f, _ = newFrame(throws[:_frameSize+1])
 		} else {
 			f, _ = newFrame(throws)
 		}
 
 		frames = append(frames, f)
-		if len(frames) == 10 && f.Score() > _max && len(throws) == 3 {
+		if len(frames) == 10 && f.Score() > _max && len(throws) == _frameSize+1 {
 			throws = nil
 		} else {
 			throws = throws[f.Size():]
