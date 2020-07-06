@@ -37,6 +37,32 @@ func TestScore(t *testing.T) {
 	}
 }
 
+func Test_frames_errors(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		input   string
+		wantErr string
+	}{
+		{
+			msg:     "too short",
+			wantErr: "--",
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.msg, func(t *testing.T) {
+			t.Parallel()
+
+			throws, err := parse(input)
+			require.NoError(t, err)
+
+			_, err = frames(throws)
+			assert.EqualError(t, err, tt.wantErr)
+		})
+	}
+}
+
 func TestParse(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
