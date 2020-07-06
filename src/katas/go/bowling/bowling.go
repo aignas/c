@@ -56,18 +56,23 @@ func frames(throws []int) []frame {
 
 func parse(input string) ([]int, error) {
 	result := make([]int, len(input))
+
+	var first bool
 	for i, r := range input {
+		first = !first
+
 		var val int
 		switch r {
 		case '-':
 			// nothing
 		case '/':
-			if i == 0 || result[i-1] == 10 {
+			if first {
 				return nil, errors.New("no spare on first throw")
 			}
 			val = 10 - result[i-1]
 		case 'X':
 			val = 10
+			first = false
 		default:
 			v, err := strconv.Atoi(string(r))
 			if err != nil {
