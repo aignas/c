@@ -66,3 +66,44 @@ func TestParse(t *testing.T) {
 		})
 	}
 }
+
+func Test_newFrame(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		msg     string
+		input   []int
+		want    frame
+		wantErr string
+	}{
+		{
+			msg:   "ok if 2 empty throws",
+			input: []int{0, 0},
+			want:  frame([]int{0, 0}),
+		},
+		{
+			msg:   "ok if 3 empty throws",
+			input: []int{0, 0, 0},
+			want:  frame([]int{0, 0, 0}),
+		},
+		{
+			msg:     "err if size is less than 2",
+			input:   []int{10},
+			wantErr: "bug: likely off-by one err",
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.msg, func(t *testing.T) {
+			t.Parallel()
+
+			got, err := newFrame(tt.input)
+			assert.Equal(t, tt.want, got)
+			if tt.wantErr != "" {
+				assert.EqualError(t, err, tt.wantErr)
+				return
+			}
+			assert.NoError(t, err)
+		})
+	}
+}

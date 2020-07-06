@@ -91,5 +91,5 @@ func parse(input string) ([]int, error) {
 
 // newFrame returns the frame and the number of throws in this frame
 func newFrame(s []int) frame {
-	return nil
+	return frame(s)
 }
