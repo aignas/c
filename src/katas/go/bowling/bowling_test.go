@@ -44,8 +44,8 @@ func Test_frames_errors(t *testing.T) {
 		wantErr string
 	}{
 		{"--", "too few throws"},
-		{strings.Repeat("-", 21), "too many throws"},
-		{strings.Repeat("X", 13), "too many throws"},
+		{strings.Repeat("-", 22), "too many throws"},
+		{strings.Repeat("X", 13), "input must be 2 or 3 throws, got 1"},
 	}
 
 	for _, tt := range tests {
@@ -116,7 +116,7 @@ func Test_newFrame(t *testing.T) {
 		{
 			msg:     "err if size is less than 2",
 			input:   []int{10},
-			wantErr: "input must be 2 or 3 throws",
+			wantErr: "input must be 2 or 3 throws, got 1",
 		},
 	}
 

@@ -59,31 +59,35 @@ func sum(frames []frame) int {
 func frames(throws []int) ([]frame, error) {
 	frames := make([]frame, 0, _frameCount)
 
-	for {
-		if len(frames) == _frameCount {
-			break
-		}
-
-		if len(throws) == 0 {
-			return nil, errors.New("too few throws")
-		}
-
-		var f frame
+	for len(throws) != 0 {
+		var input []int
 		if len(throws) > _frameSize+1 {
-			f, _ = newFrame(throws[:_frameSize+1])
+			input = throws[:_frameSize+1]
 		} else {
-			f, _ = newFrame(throws)
+			input = throws
+		}
+
+		f, err := newFrame(input)
+		if err != nil {
+			return nil, err
 		}
 
 		frames = append(frames, f)
-		if len(frames) == _frameCount && f.Score() > _max && len(throws) == _frameSize+1 {
-			throws = nil
+
+		if len(frames) == _frameCount && f.Score() > _max {
+			throws = throws[_frameSize+1:]
+		} else if len(frames) == _frameCount {
+			throws = throws[_frameSize:]
 		} else {
 			throws = throws[f.Size():]
 		}
 	}
 
-	if len(throws) != 0 {
+	if len(frames) < _frameCount {
+		return nil, errors.New("too few throws")
+	}
+
+	if len(frames) > _frameCount {
 		return nil, errors.New("too many throws")
 	}
 
@@ -125,7 +129,7 @@ func parse(input string) ([]int, error) {
 // newFrame returns the frame and the number of throws in this frame
 func newFrame(s []int) (frame, error) {
 	if len(s) != 2 && len(s) != 3 {
-		return nil, errors.New("input must be 2 or 3 throws")
+		return nil, fmt.Errorf("input must be 2 or 3 throws, got %d", len(s))
 	}
 
 	return frame(s), nil
