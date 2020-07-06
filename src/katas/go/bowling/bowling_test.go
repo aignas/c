@@ -146,6 +146,7 @@ func Test_frame_Score(t *testing.T) {
 	}{
 		{"simple", []int{4, 5, 4}, 9},
 		{"spare", []int{4, 6, 4}, 14},
+		{"strike", []int{10, 10, 10}, 30},
 	}
 
 	for _, tt := range tests {
