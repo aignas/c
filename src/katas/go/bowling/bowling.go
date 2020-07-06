@@ -1,6 +1,9 @@
 package bowling
 
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+)
 
 type frame []int
 
@@ -62,7 +65,11 @@ func parse(input string) ([]int, error) {
 		case 'X':
 			val = 10
 		default:
-			val, _ = strconv.Atoi(string(r))
+			v, err := strconv.Atoi(string(r))
+			if err != nil {
+				return nil, fmt.Errorf("invalid input: %q", r)
+			}
+			val = v
 		}
 		result[i] = val
 	}
