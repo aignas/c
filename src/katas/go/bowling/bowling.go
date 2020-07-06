@@ -17,6 +17,15 @@ const (
 // the length of the frame is either 2 or 3 and is enforced by the constructor
 type frame []int
 
+// newFrame returns the frame and the number of throws in this frame
+func newFrame(s []int) (frame, error) {
+	if len(s) != 2 && len(s) != 3 {
+		return nil, fmt.Errorf("input must be 2 or 3 throws, got %d", len(s))
+	}
+
+	return frame(s), nil
+}
+
 func (f frame) Score() int {
 	score := f[0] + f[1]
 	if score >= _max {
@@ -129,13 +138,4 @@ func parse(input string) ([]int, error) {
 	}
 
 	return result, nil
-}
-
-// newFrame returns the frame and the number of throws in this frame
-func newFrame(s []int) (frame, error) {
-	if len(s) != 2 && len(s) != 3 {
-		return nil, fmt.Errorf("input must be 2 or 3 throws, got %d", len(s))
-	}
-
-	return frame(s), nil
 }
