@@ -1,5 +1,7 @@
 package bowling
 
+import "strconv"
+
 type frame []int
 
 func (frame) Score() int {
@@ -49,7 +51,18 @@ func frames(throws []int) []frame {
 }
 
 func parse(input string) ([]int, error) {
-	return make([]int, len(input)), nil
+	result := make([]int, len(input))
+	for i, r := range input {
+		var val int
+		switch r {
+		case '-':
+			// nothing
+		default:
+			val, _ = strconv.Atoi(string(r))
+		}
+		result[i] = val
+	}
+	return result, nil
 }
 
 // newFrame returns the frame and the number of throws in this frame
