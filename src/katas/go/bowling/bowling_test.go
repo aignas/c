@@ -88,7 +88,7 @@ func Test_newFrame(t *testing.T) {
 		{
 			msg:     "err if size is less than 2",
 			input:   []int{10},
-			wantErr: "bug: likely off-by one err",
+			wantErr: "input must be 2 or 3 throws",
 		},
 	}
 
