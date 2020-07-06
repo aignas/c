@@ -19,6 +19,7 @@ func TestScore(t *testing.T) {
 		{strings.Repeat("5-", 10), 50, ""},
 		{strings.Repeat("5/", 10) + "5", 150, ""},
 		{strings.Repeat("X", 12), 300, ""},
+		{strings.Repeat("X", 13), 0, "input must be 2 or 3 throws, got 1"},
 	}
 
 	for _, tt := range tests {
