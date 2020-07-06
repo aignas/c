@@ -59,6 +59,8 @@ func parse(input string) ([]int, error) {
 			// nothing
 		case '/':
 			val = 10 - result[i-1]
+		case 'X':
+			val = 10
 		default:
 			val, _ = strconv.Atoi(string(r))
 		}
