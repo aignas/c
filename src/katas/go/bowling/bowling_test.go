@@ -44,17 +44,17 @@ func Test_frames_errors(t *testing.T) {
 		wantErr string
 	}{
 		{
-			msg:     "too short",
-			wantErr: "--",
+			input:   "--",
+			wantErr: "too short",
 		},
 	}
 
 	for _, tt := range tests {
 		tt := tt
-		t.Run(tt.msg, func(t *testing.T) {
+		t.Run(tt.input, func(t *testing.T) {
 			t.Parallel()
 
-			throws, err := parse(input)
+			throws, err := parse(tt.input)
 			require.NoError(t, err)
 
 			_, err = frames(throws)

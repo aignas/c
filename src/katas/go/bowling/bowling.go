@@ -40,7 +40,8 @@ func Score(input string) (int, error) {
 		return 0, err
 	}
 
-	return sum(frames(throws)), nil
+	frames, _ := frames(throws)
+	return sum(frames), nil
 }
 
 func sum(frames []frame) int {
@@ -54,7 +55,7 @@ func sum(frames []frame) int {
 }
 
 // frames returns frames
-func frames(throws []int) []frame {
+func frames(throws []int) ([]frame, error) {
 	var j int
 
 	frames := make([]frame, 10)
@@ -68,7 +69,7 @@ func frames(throws []int) []frame {
 		j += frames[i].Size()
 	}
 
-	return frames
+	return frames, nil
 }
 
 func parse(input string) ([]int, error) {
