@@ -116,11 +116,7 @@ func Test_frame_Size(t *testing.T) {
 		throws []int
 		want   int
 	}{
-		{
-			msg:    "ok",
-			throws: []int{4, 5, 4},
-			want:   2,
-		},
+		{"simple", []int{4, 5, 4}, 2},
 	}
 
 	for _, tt := range tests {

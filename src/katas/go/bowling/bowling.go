@@ -16,7 +16,7 @@ func (frame) Score() int {
 }
 
 func (frame) Size() int {
-	return 0
+	return 2
 }
 
 // Score returns bowling score
