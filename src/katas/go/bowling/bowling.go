@@ -45,6 +45,7 @@ func Score(input string) (int, error) {
 	if err != nil {
 		return 0, err
 	}
+
 	return sum(frames), nil
 }
 
