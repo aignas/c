@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestScore(t *testing.T) {
@@ -104,6 +105,35 @@ func Test_newFrame(t *testing.T) {
 				return
 			}
 			assert.NoError(t, err)
+		})
+	}
+}
+
+func Test_frame_Size(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		msg    string
+		throws []int
+		want   int
+	}{
+		{
+			msg:    "ok",
+			throws: []int{4, 5, 4},
+			want:   2,
+		},
+	}
+
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.msg, func(t *testing.T) {
+			t.Parallel()
+
+			frame, err := newFrame(tt.throws)
+			require.NoError(t, err)
+
+			got := frame.Size()
+
+			assert.Equal(t, tt.want, got)
 		})
 	}
 }
