@@ -48,6 +48,8 @@ func TestParse(t *testing.T) {
 		{"45", []int{4, 5}, ""},
 		{"4/", []int{4, 6}, ""},
 		{"X", []int{10}, ""},
+		{"/", nil, "no spare on first throw"},
+		{"X/", nil, "no spare on first throw"},
 		{"4y", nil, "invalid input: 'y'"},
 	}
 

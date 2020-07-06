@@ -1,6 +1,7 @@
 package bowling
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
 )
@@ -61,6 +62,9 @@ func parse(input string) ([]int, error) {
 		case '-':
 			// nothing
 		case '/':
+			if i == 0 {
+				return nil, errors.New("no spare on first throw")
+			}
 			val = 10 - result[i-1]
 		case 'X':
 			val = 10
