@@ -20,6 +20,5 @@ test_suite(
     tags = ["lint"],
     tests = [
         ":shellcheck_all",
-        ":rustfmt_all",
     ],
 )
