@@ -1,4 +1,5 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 http_archive(
     name = "io_bazel_rules_go",
@@ -41,8 +42,9 @@ protobuf_deps()
 
 http_archive(
     name = "com_github_bazelbuild_buildtools",
-    strip_prefix = "buildtools-3.2.0",
-    url = "https://github.com/bazelbuild/buildtools/archive/3.2.0.zip",
+    sha256 = "fdb328a2831d82503755ffd2e1c7899bb8b9746ff0992e0d74e7b77d658c8903",
+    strip_prefix = "buildtools-3.3.1",
+    url = "https://github.com/bazelbuild/buildtools/archive/3.3.1.zip",
 )
 
 http_archive(
@@ -54,6 +56,36 @@ exports_files(["shellcheck"])
     strip_prefix = "shellcheck-v0.7.1",
     urls = ["https://github.com/koalaman/shellcheck/releases/download/v0.7.1/shellcheck-v0.7.1.linux.x86_64.tar.xz"],
 )
+
+git_repository(
+    name = "io_bazel_rules_rust",
+    commit = "3dffbabb3ab65a41056228b5c387d4b78331eaec",
+    remote = "https://github.com/bazelbuild/rules_rust.git",
+)
+
+http_archive(
+    name = "bazel_skylib",
+    sha256 = "97e70364e9249702246c0e9444bccdc4b847bed1eb03c5a3ece4f83dfe6abc44",
+    urls = [
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.0.2/bazel-skylib-1.0.2.tar.gz",
+        "https://github.com/bazelbuild/bazel-skylib/releases/download/1.0.2/bazel-skylib-1.0.2.tar.gz",
+    ],
+)
+
+load("@io_bazel_rules_rust//:workspace.bzl", "bazel_version")
+
+bazel_version(name = "bazel_version")
+
+load("@io_bazel_rules_rust//rust:repositories.bzl", "rust_repositories")
+
+rust_repositories(
+    edition = "2018",
+    version = "1.44.1",
+)
+
+load("//cargo:crates.bzl", "raze_fetch_remote_crates")
+
+raze_fetch_remote_crates()
 
 go_repository(
     name = "com_github_davecgh_go_spew",

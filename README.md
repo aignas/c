@@ -34,3 +34,7 @@ $ gazelle
 7. Pin buildifier to a particular tag.
 8. Add bazelisk in order to not need a system `bazel` installation.
 9. Add github actions to bootstrap bazelisk and run the ci script
+10. Install `cargo-raze` via `cargo install` and then setup `Cargo.toml`.
+  FIXME sometime later in order to have something similar to `gazelle` setup for `cargo-raze`.
+11. run `cargo raze` from the `cargo` repository.
+12. Manually create a `BUILD.bazel` file for a rust binary/library.

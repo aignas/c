@@ -8,18 +8,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
 
-    - name: Mount bazel cache
-      uses: actions/cache@v1
-      with:
-        path: "/home/runner/.cache/bazel"
-        key: bazel
+      - name: Mount bazel cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/bazel
+          key: bazel
 
-    - name: Bootstrap
-      run: ./tools/scripts/bootstrap.sh
+      - name: Mount cargo cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            cargo/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('cargo/**/Cargo.lock') }}
 
-    - name: Test
-      run: |
-        source .envrc
-        ./tools/ci/ci-test.sh
+      - name: Mount tools
+        uses: actions/cache@v2
+        with:
+          path: |
+            tools/bin/
+            tools/.crates.toml
+            tools/.crates2.json
+          key: ${{ runner.os }}-tools-${{ hashFiles('tools/scripts/bootstrap.sh') }}
+
+      - name: Bootstrap
+        run: ./tools/scripts/bootstrap.sh
+
+      - name: Build/Test
+        run: ./tools/ci/ci-test.sh
