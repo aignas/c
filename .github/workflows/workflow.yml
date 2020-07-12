@@ -14,10 +14,19 @@ jobs:
           toolchain: stable
 
       - name: Mount bazel cache
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
-          path: "/home/runner/.cache/bazel"
+          path: ~/.cache/bazel
           key: bazel
+
+      - name: Mount cargo cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            cargo/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('cargo/**/Cargo.lock') }}
 
       - name: Bootstrap
         run: ./tools/scripts/bootstrap.sh
