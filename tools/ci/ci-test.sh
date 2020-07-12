@@ -16,11 +16,11 @@ ensure() {
     fi
 }
 
-readonly WORKSPACE_ROOT=$(git rev-parse --show-toplevel)
-cd "${WORKSPACE_ROOT}"
+# shellcheck source=/dev/null
+source .envrc
 
-ensure tools/buildifier
-ensure tools/gazelle
-ensure tools/gazelle update-repos -from_file=src/go.mod -prune
+ensure buildifier
+ensure gazelle
+ensure gazelle update-repos -from_file=src/go.mod -prune
 bazel test //:verify-all
 bazel test //src/...

@@ -17,7 +17,7 @@ jobs:
         key: bazel
 
     - name: Bootstrap
-      run: ./tools/bootstrap.sh
+      run: ./tools/scripts/bootstrap.sh
 
     - name: Test
       run: |
