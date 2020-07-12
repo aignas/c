@@ -9,6 +9,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
 
       - name: Mount bazel cache
         uses: actions/cache@v1
@@ -16,14 +19,8 @@ jobs:
           path: "/home/runner/.cache/bazel"
           key: bazel
 
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-        name: Bootstrap
+      - name: Bootstrap
         run: ./tools/scripts/bootstrap.sh
 
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-        name: Bootstrap
+      - name: Build/Test
         run: ./tools/ci/ci-test.sh
