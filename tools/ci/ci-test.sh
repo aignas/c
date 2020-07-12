@@ -22,5 +22,7 @@ source .envrc
 ensure buildifier
 ensure gazelle
 ensure gazelle update-repos -from_file=src/go.mod -prune
+ensure raze
 bazel test //:verify-all
+bazel build //src/...
 bazel test //src/...

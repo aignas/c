@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
     - name: Mount bazel cache
       uses: actions/cache@v1
@@ -16,10 +16,14 @@ jobs:
         path: "/home/runner/.cache/bazel"
         key: bazel
 
-    - name: Bootstrap
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+      name: Bootstrap
       run: ./tools/scripts/bootstrap.sh
 
-    - name: Test
-      run: |
-        source .envrc
-        ./tools/ci/ci-test.sh
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+      name: Bootstrap
+      run: ./tools/ci/ci-test.sh

@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+# Depends on:
+# - curl
+# - cargo
 set -euo pipefail
 
 readonly WORKSPACE_ROOT=$(git rev-parse --show-toplevel)
@@ -10,14 +14,20 @@ bazelisk() {
     local -r name="bazelisk-$2"
 
     rm -f ./tools/bin/bazel
-    curl -L "$url/$version/$name" \
+    curl -L "$url/v$version/$name" \
         --output ./tools/bin/bazel
     chmod +x ./tools/bin/bazel
 }
 
+raze() {
+    local -r version="$1"
+    cargo install cargo-raze --root=./tools --version="$1"
+}
+
 main() {
     mkdir -p ./tools/bin
-    bazelisk v1.5.0 linux-amd64
+    bazelisk 1.5.0 linux-amd64
+    raze 0.3.8
 }
 
 main
