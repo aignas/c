@@ -19,8 +19,11 @@ ensure() {
 readonly WORKSPACE_ROOT=$(git rev-parse --show-toplevel)
 cd "${WORKSPACE_ROOT}"
 
-ensure tools/buildifier
-ensure tools/gazelle
-ensure tools/gazelle update-repos -from_file=src/go.mod -prune
+# shellcheck source=../../.envrc
+source .envrc
+
+ensure buildifier
+ensure gazelle
+ensure gazelle update-repos -from_file=src/go.mod -prune
 bazel test //:verify-all
 bazel test //src/...
