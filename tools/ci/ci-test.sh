@@ -12,7 +12,7 @@ ensure() {
     if [ -n "$files" ]; then
         echo "Detected changes to:"
         echo "$files"
-        die "Please run '$*' to cleanup the build files"
+        die "Please run '$*' to cleanup files"
     fi
 }
 
@@ -23,6 +23,7 @@ ensure buildifier
 ensure gazelle
 ensure gazelle update-repos -from_file=src/go.mod -prune
 ensure raze
+ensure rustfmt
 bazel test //:verify-all
 bazel build //src/...
 bazel test //src/...

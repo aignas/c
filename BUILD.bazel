@@ -1,6 +1,7 @@
 load("@bazel_gazelle//:def.bzl", "gazelle")
 load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
 load("//rules:shellcheck.bzl", "shellcheck", "shellcheck_test")
+load("//rules:rustfmt.bzl", "rustfmt_test")
 
 # gazelle:build_file_name BUILD.bazel
 gazelle(name = "gazelle")
@@ -15,10 +16,17 @@ shellcheck_test(
     tags = ["lint"],
 )
 
+rustfmt_test(
+    name = "rustfmt_all",
+    data = glob(["src/**/*.rs"]),
+    tags = ["lint"],
+)
+
 test_suite(
     name = "verify-all",
     tags = ["lint"],
     tests = [
         ":shellcheck_all",
+        ":rustfmt_all",
     ],
 )
