@@ -16,9 +16,6 @@ ensure() {
     fi
 }
 
-readonly WORKSPACE_ROOT=$(git rev-parse --show-toplevel)
-cd "${WORKSPACE_ROOT}"
-
 # shellcheck source=../../.envrc
 source .envrc
 

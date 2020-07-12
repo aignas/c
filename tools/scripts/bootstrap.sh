@@ -16,6 +16,7 @@ bazelisk() {
 }
 
 main() {
+    mkdir -p ./tools/bin
     bazelisk v1.5.0 linux-amd64
 }
 
