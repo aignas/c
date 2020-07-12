@@ -28,6 +28,15 @@ jobs:
             cargo/target
           key: ${{ runner.os }}-cargo-${{ hashFiles('cargo/**/Cargo.lock') }}
 
+      - name: Mount tools
+        uses: actions/cache@v2
+        with:
+          path: |
+            tools/bin/
+            tools/.crates.toml
+            tools/.crates2.json
+          key: ${{ runner.os }}-tools-${{ hashFiles('tools/scripts/bootstrap.sh') }}
+
       - name: Bootstrap
         run: ./tools/scripts/bootstrap.sh
 

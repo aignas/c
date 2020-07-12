@@ -13,7 +13,8 @@ bazelisk() {
     local -r version="$1"
     local -r name="bazelisk-$2"
 
-    rm -f ./tools/bin/bazel
+    [[ -f ./tools/bin/bazel ]] && return
+
     curl -L "$url/v$version/$name" \
         --output ./tools/bin/bazel
     chmod +x ./tools/bin/bazel
@@ -21,6 +22,9 @@ bazelisk() {
 
 raze() {
     local -r version="$1"
+
+    [[ -f ./tools/bin/cargo-raze ]] && return
+
     cargo install cargo-raze --root=./tools --version="$1"
 }
 
