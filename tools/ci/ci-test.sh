@@ -16,7 +16,7 @@ ensure() {
     fi
 }
 
-# shellcheck source=../../.envrc
+# shellcheck source=/dev/null
 source .envrc
 
 ensure buildifier
