@@ -65,3 +65,5 @@ There is a list of known issues, that I would like to address before I deem this
   * https://github.com/google/cargo-raze/issues/42
   * https://fuchsia.dev/fuchsia-src/development/languages/rust/editors
   * https://github.com/bazelbuild/rules_rust/issues/71
+  
+  It is possible to get autocompletion working if one symlinks //cargo/{target,Cargo.{toml,lock}} files to the library directory and moves the `.rs` files into a `src` subdir
