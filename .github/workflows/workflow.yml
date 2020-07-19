@@ -17,7 +17,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.cache/bazel
-          key: bazel-{{ hashFiles('.bazelversion') }}
+          key: bazel-${{ hashFiles('.bazelversion') }}
 
       - name: Mount cargo cache
         uses: actions/cache@v2
