@@ -1,6 +1,6 @@
 type R<T> = Result<T, String>;
 
-fn score(input: &str) -> R<usize> {
+pub fn score(input: &str) -> R<usize> {
     Ok(parse(input)?.iter().map(|f| f.sum()).sum())
 }
 

@@ -4,7 +4,20 @@ This is my code monorepo.  I don't have a lot of code, but I want to have it
 all in a single repository, so that I can reuse tooling.  I also want to use
 `bazel`.
 
-## Setup notes
+## Setup
+
+1. Clone the repo
+2. Install the build/env dependencies:
+  1. `cargo`
+  2. `direnv`
+  3. `g++`
+3. Run bootstrap:
+```sh
+$ direnv allow
+$ bootstrap.sh
+```
+
+## Initial setup notes
 
 1. Initial bazel setup
 ```
