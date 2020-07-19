@@ -51,3 +51,17 @@ $ gazelle
   FIXME sometime later in order to have something similar to `gazelle` setup for `cargo-raze`.
 11. run `cargo raze` from the `cargo` repository.
 12. Manually create a `BUILD.bazel` file for a rust binary/library.
+
+## Known issues
+
+There is a list of known issues, that I would like to address before I deem this to be working perfectly:
+* `rules_go` does not provide an IDE integration for generated files. `gopls`
+  works pretty well for source code and jumping to definition for standard
+  library or dependencies used via go modules though.
+  Tracked in https://github.com/bazelbuild/rules_go/issues/512
+* `cargo-raze` does not work well with the IDE. There have been a few
+  improvements that may be used to make this better, but I have not made it to
+  work yet. Related links:
+  * https://github.com/google/cargo-raze/issues/42
+  * https://fuchsia.dev/fuchsia-src/development/languages/rust/editors
+  * https://github.com/bazelbuild/rules_rust/issues/71
