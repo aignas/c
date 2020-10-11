@@ -1,4 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("@rules_pkg//:pkg.bzl", "pkg_tar", "pkg_deb")
 
 go_library(
     name = "godot_lib",
@@ -36,4 +37,37 @@ go_test(
         "@com_github_stretchr_testify//assert",
         "@com_github_stretchr_testify//require",
     ],
+)
+
+# Debian pkg
+
+pkg_tar(
+    name = "godot-bin",
+    package_dir = "/usr/bin",
+    srcs = [":godot"],
+    mode = "0755",
+)
+
+pkg_tar(
+    name = "debian-data",
+    extension = "tar.gz",
+    deps = [
+        ":godot-bin",
+    ],
+)
+
+pkg_deb(
+    name = "godot-debian",
+    architecture = "amd64",
+    built_using = "unzip (6.0.1)",
+    data = ":debian-data",
+    depends = [
+        "git",
+        "zsh",
+    ],
+    description_file = "debian/description",
+    homepage = "http://anikevicius.lt",
+    maintainer = "Ignas Anikevicius <anikevicius@gmail.com>",
+    package = "godot",
+    version = "0.1.0",
 )
