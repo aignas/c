@@ -1,0 +1,27 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "kata_lib",
+    srcs = [
+        "go.go",
+        "main.go",
+        "run.go",
+        "rust.go",
+    ],
+    importpath = "github.com/aignas/c/cmd/kata",
+    visibility = ["//visibility:private"],
+    deps = ["@com_github_jessevdk_go_flags//:go-flags"],
+)
+
+go_binary(
+    name = "kata",
+    embed = [":kata_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "kata_test",
+    srcs = ["run_test.go"],
+    embed = [":kata_lib"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)

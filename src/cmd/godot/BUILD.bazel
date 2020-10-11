@@ -1,0 +1,39 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "godot_lib",
+    srcs = [
+        "cli.go",
+        "install.go",
+        "link.go",
+        "main.go",
+        "parser.go",
+        "stringset.go",
+    ],
+    importpath = "github.com/aignas/c/cmd/godot",
+    visibility = ["//visibility:private"],
+    deps = [
+        "@com_github_jessevdk_go_flags//:go-flags",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_binary(
+    name = "godot",
+    embed = [":godot_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "godot_test",
+    srcs = [
+        "cli_test.go",
+        "install_test.go",
+        "stringset_test.go",
+    ],
+    embed = [":godot_lib"],
+    deps = [
+        "@com_github_stretchr_testify//assert",
+        "@com_github_stretchr_testify//require",
+    ],
+)
