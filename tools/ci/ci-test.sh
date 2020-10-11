@@ -21,7 +21,7 @@ source .envrc
 
 ensure buildifier
 ensure gazelle
-ensure gazelle update-repos -from_file=src/go.mod -prune -to_macro=third_party/repositories.bzl%go_repositories
+ensure mod-tidy
 ensure raze
 ensure rustfmt
 bazel test //:verify-all
