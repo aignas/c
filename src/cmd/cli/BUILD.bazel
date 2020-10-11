@@ -1,7 +1,7 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
 go_library(
-    name = "go_default_library",
+    name = "cli_lib",
     srcs = ["main.go"],
     importpath = "github.com/aignas/c/cmd/cli",
     visibility = ["//visibility:private"],
@@ -9,13 +9,13 @@ go_library(
 
 go_binary(
     name = "cli",
-    embed = [":go_default_library"],
+    embed = [":cli_lib"],
     visibility = ["//visibility:public"],
 )
 
 go_test(
-    name = "go_default_test",
+    name = "cli_test",
     srcs = ["main_test.go"],
-    embed = [":go_default_library"],
-    deps = ["@com_github_stretchr_testify//assert:go_default_library"],
+    embed = [":cli_lib"],
+    deps = ["@com_github_stretchr_testify//assert"],
 )
