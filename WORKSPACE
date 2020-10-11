@@ -3,19 +3,19 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 http_archive(
     name = "io_bazel_rules_go",
-    sha256 = "a8d6b1b354d371a646d2f7927319974e0f9e52f73a2452d2b3877118169eb6bb",
+    sha256 = "b725e6497741d7fc2d55fcc29a276627d10e43fa5d0bb692692890ae30d98d00",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.23.3/rules_go-v0.23.3.tar.gz",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.23.3/rules_go-v0.23.3.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.24.3/rules_go-v0.24.3.tar.gz",
+        "https://github.com/bazelbuild/rules_go/releases/download/v0.24.3/rules_go-v0.24.3.tar.gz",
     ],
 )
 
 http_archive(
     name = "bazel_gazelle",
-    sha256 = "cdb02a887a7187ea4d5a27452311a75ed8637379a1287d8eeb952138ea485f7d",
+    sha256 = "b85f48fa105c4403326e9525ad2b2cc437babaa6e15a3fc0b1dbab0ab064bc7c",
     urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.21.1/bazel-gazelle-v0.21.1.tar.gz",
-        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.21.1/bazel-gazelle-v0.21.1.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.22.2/bazel-gazelle-v0.22.2.tar.gz",
+        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.22.2/bazel-gazelle-v0.22.2.tar.gz",
     ],
 )
 
@@ -31,9 +31,9 @@ gazelle_dependencies()
 
 http_archive(
     name = "com_google_protobuf",
-    sha256 = "e5265d552e12c1f39c72842fa91d84941726026fa056d914ea6a25cd58d7bbf8",
-    strip_prefix = "protobuf-3.12.3",
-    urls = ["https://github.com/protocolbuffers/protobuf/archive/v3.12.3.zip"],
+    sha256 = "1c744a6a1f2c901e68c5521bc275e22bdc66256eeb605c2781923365b7087e5f",
+    strip_prefix = "protobuf-3.13.0",
+    urls = ["https://github.com/protocolbuffers/protobuf/archive/v3.13.0.zip"],
 )
 
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
@@ -42,9 +42,9 @@ protobuf_deps()
 
 http_archive(
     name = "com_github_bazelbuild_buildtools",
-    sha256 = "fdb328a2831d82503755ffd2e1c7899bb8b9746ff0992e0d74e7b77d658c8903",
-    strip_prefix = "buildtools-3.3.1",
-    url = "https://github.com/bazelbuild/buildtools/archive/3.3.1.zip",
+    sha256 = "fdb328a2831d82503755fed2e1c7899bb8b9746ff0992e0d74e7b77d658c8903",
+    strip_prefix = "buildtools-3.5.0",
+    url = "https://github.com/bazelbuild/buildtools/archive/3.5.0.zip",
 )
 
 http_archive(
@@ -80,7 +80,7 @@ load("@io_bazel_rules_rust//rust:repositories.bzl", "rust_repositories")
 
 rust_repositories(
     edition = "2018",
-    version = "1.44.1",
+    version = "1.47.0",
 )
 
 load("//cargo:crates.bzl", "raze_fetch_remote_crates")
