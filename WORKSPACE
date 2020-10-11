@@ -42,7 +42,7 @@ protobuf_deps()
 
 http_archive(
     name = "com_github_bazelbuild_buildtools",
-    sha256 = "fdb328a2831d82503755fed2e1c7899bb8b9746ff0992e0d74e7b77d658c8903",
+    sha256 = "f5b666935a827bc2b6e2ca86ea56c796d47f2821c2ff30452d270e51c2a49708",
     strip_prefix = "buildtools-3.5.0",
     url = "https://github.com/bazelbuild/buildtools/archive/3.5.0.zip",
 )
