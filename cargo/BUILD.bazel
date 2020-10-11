@@ -1,4 +1,5 @@
 """
+@generated
 cargo-raze workspace build file.
 
 DO NOT EDIT! Replaced on runs of cargo-raze
@@ -10,8 +11,12 @@ licenses([
     "notice",  # See individual crates for specific licenses
 ])
 
+# Aliased targets
 alias(
     name = "regex",
     actual = "@raze__regex__1_3_9//:regex",
-    tags = ["cargo-raze"],
+    tags = [
+        "cargo-raze",
+        "manual",
+    ],
 )
