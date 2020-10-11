@@ -42,20 +42,20 @@ protobuf_deps()
 
 http_archive(
     name = "com_github_bazelbuild_buildtools",
-    sha256 = "fdb328a2831d82503755fed2e1c7899bb8b9746ff0992e0d74e7b77d658c8903",
+    sha256 = "f5b666935a827bc2b6e2ca86ea56c796d47f2821c2ff30452d270e51c2a49708",
     strip_prefix = "buildtools-3.5.0",
     url = "https://github.com/bazelbuild/buildtools/archive/3.5.0.zip",
 )
 
-http_archive(
-    name = "shellcheck",
-    build_file_content = """
-exports_files(["shellcheck"])
-    """,
-    sha256 = "64f17152d96d7ec261ad3086ed42d18232fcb65148b44571b564d688269d36c8",
-    strip_prefix = "shellcheck-v0.7.1",
-    urls = ["https://github.com/koalaman/shellcheck/releases/download/v0.7.1/shellcheck-v0.7.1.linux.x86_64.tar.xz"],
+git_repository(
+    name = "com_github_aignas_rules_shellcheck",
+    commit = "94b231c8475f067c60f77459b2b54f4bcacc5e73",
+    remote = "https://github.com/aignas/rules_shellcheck.git",
 )
+
+load("@com_github_aignas_rules_shellcheck//:deps.bzl", "shellcheck_dependencies")
+
+shellcheck_dependencies()
 
 git_repository(
     name = "io_bazel_rules_rust",
