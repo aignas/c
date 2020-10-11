@@ -1,5 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
-load("@rules_pkg//:pkg.bzl", "pkg_tar", "pkg_deb")
+load("@rules_pkg//:pkg.bzl", "pkg_deb", "pkg_tar")
 
 go_library(
     name = "godot_lib",
@@ -43,9 +43,9 @@ go_test(
 
 pkg_tar(
     name = "godot-bin",
-    package_dir = "/usr/bin",
     srcs = [":godot"],
     mode = "0755",
+    package_dir = "/usr/bin",
 )
 
 pkg_tar(
