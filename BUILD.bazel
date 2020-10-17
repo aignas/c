@@ -9,16 +9,10 @@ buildifier(name = "buildifier")
 
 shellcheck(name = "shellcheck")
 
-shellcheck_test(
-    name = "shellcheck_all",
-    data = glob(["tools/**/*.sh"]),
-    tags = ["lint"],
-)
-
 test_suite(
-    name = "verify-all",
+    name = "shellcheck_test",
     tags = ["lint"],
     tests = [
-        ":shellcheck_all",
+        "//tools:shellcheck",
     ],
 )

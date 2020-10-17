@@ -1,0 +1,8 @@
+test_suite(
+    name = "shellcheck",
+    tags = ["lint"],
+    tests = [
+        "//tools/ci:shellcheck",
+        "//tools/scripts:shellcheck",
+    ],
+)

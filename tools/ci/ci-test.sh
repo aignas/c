@@ -19,11 +19,10 @@ ensure() {
 # shellcheck source=/dev/null
 source .envrc
 
-ensure buildifier
-ensure gazelle
+ensure bazel run //:buildifier
+ensure bazel run //:gazelle
 ensure mod-tidy
 ensure raze
 ensure rustfmt
-bazel test //:verify-all
 bazel build //src/...
 bazel test //src/...
