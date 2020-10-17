@@ -24,6 +24,5 @@ ensure bazel run //:gazelle
 ensure mod-tidy
 ensure raze
 ensure rustfmt
-bazel test //:verify-all
 bazel build //src/...
 bazel test //src/...
