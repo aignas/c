@@ -1,12 +1,12 @@
 #!/bin/bash
 set -eu
 
-readonly _dir="$(dirname "$0")"
-
 readonly WORKSPACE_ROOT=$(git rev-parse --show-toplevel)
 cd "${WORKSPACE_ROOT}/cargo"
 
 rm -rf remote/*.BUILD.bazel
 ../tools/bin/cargo-raze
-"$_dir/buildifier"
-cargo generate-lockfile
+
+if [[ "${1:-}" == update ]]; then
+    cargo generate-lockfile
+fi
