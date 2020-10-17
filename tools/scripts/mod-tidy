@@ -1,3 +1,3 @@
 #!/bin/bash
 
-exec bazel run //:gazelle update-repos -from_file=src/go.mod -prune -to_macro=third_party/repositories.bzl%go_repositories
+exec bazel run //:gazelle -- update-repos -from_file=src/go.mod -prune -to_macro=third_party/repositories.bzl%go_repositories
