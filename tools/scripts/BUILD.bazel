@@ -2,7 +2,13 @@ load("@com_github_aignas_rules_shellcheck//:def.bzl", "shellcheck_test")
 
 filegroup(
     name = "scripts",
-    srcs = glob(["*"], exclude=["shellcheck", "BUILD.bazel"]),
+    srcs = glob(
+        ["*"],
+        exclude = [
+            "shellcheck",
+            "BUILD.bazel",
+        ],
+    ),
 )
 
 shellcheck_test(
