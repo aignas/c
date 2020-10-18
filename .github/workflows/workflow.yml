@@ -1,7 +1,8 @@
 name: CI
 
 on:
-  push: {}
+  push:
+  pull_request_target:
 
 jobs:
   build:
@@ -46,12 +47,32 @@ jobs:
       - name: Build/Test
         run: ./tools/ci/ci-test.sh
 
-      - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1.3
-        if: always()
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          name: bazel-testlogs
+          path: ./bazel-testlogs/**/test.xml
+
+  publish-test-results:
+    name: "Publish Test Results"
+    needs: build
+    runs-on: ubuntu-latest
+    # the build-and-test job might be skipped, we don't need to run this job then
+    if: >
+      success() || failure() && (
+        github.event_name == 'push' ||
+        github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository
+      )
+
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts/bazel-testlogs
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1.3
+        with:
           check_name: Test Results
-          files: bazel-testlogs/**/test.xml
-          report_individual_runs: true
-          deduplicate_classes_by_file_name: false
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          files: **/test.xml
