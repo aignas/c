@@ -45,3 +45,13 @@ jobs:
 
       - name: Build/Test
         run: ./tools/ci/ci-test.sh
+
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1.3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          check_name: Test Results
+          files: bazel-testlogs/**/test.xml
+          report_individual_runs: true
+          deduplicate_classes_by_file_name: false
