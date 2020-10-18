@@ -54,6 +54,13 @@ jobs:
           path: ./bazel-testlogs/**/test.xml
           if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
 
+      - name: Upload godot
+        uses: actions/upload-artifact@v2
+        with:
+          name: godot
+          path: ./bazel-bin/src/cmd/godot/godot-debian.deb
+          if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
+
   publish-test-results:
     name: "Publish Test Results"
     needs: build
@@ -69,7 +76,7 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v2
         with:
-          path: artifacts
+          path: test-results
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1.3
