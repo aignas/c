@@ -52,6 +52,7 @@ jobs:
         with:
           name: test-results
           path: ./bazel-testlogs/**/test.xml
+          if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
 
   publish-test-results:
     name: "Publish Test Results"
