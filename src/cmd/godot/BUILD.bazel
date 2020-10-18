@@ -1,5 +1,6 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 load("@rules_pkg//:pkg.bzl", "pkg_deb", "pkg_tar")
+load(":version.bzl", "version")
 
 go_library(
     name = "godot_lib",
@@ -69,5 +70,5 @@ pkg_deb(
     homepage = "http://anikevicius.lt",
     maintainer = "Ignas Anikevicius <anikevicius@gmail.com>",
     package = "godot",
-    version = "0.1.0",
+    version = version,
 )
