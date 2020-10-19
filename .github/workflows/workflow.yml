@@ -47,18 +47,22 @@ jobs:
       - name: Build/Test
         run: ./tools/ci/ci-test.sh
 
+      - name: Collect artifacts
+        # TODO: remove when github actions support symlinks
+        run: ./tools/ci/ci-collect.sh
+
       - name: Upload test results
         uses: actions/upload-artifact@v2
         with:
           name: test-results
-          path: ./bazel-testlogs/**/test.xml
+          path: ./artifacts/test-results/
           if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
 
       - name: Upload godot
         uses: actions/upload-artifact@v2
         with:
           name: godot
-          path: ./bazel-bin/src/cmd/godot/godot-debian.deb
+          path: ./artifacts/debs/src/cmd/godot/godot-debian.deb
           if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
 
   publish-test-results:
