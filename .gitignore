@@ -1,3 +1,4 @@
+/artifacts/
 /bazel-*
 /tools/bin/
 /tools/.crates.toml

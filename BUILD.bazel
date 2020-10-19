@@ -8,11 +8,3 @@ gazelle(name = "gazelle")
 buildifier(name = "buildifier")
 
 shellcheck(name = "shellcheck")
-
-test_suite(
-    name = "shellcheck_test",
-    tags = ["lint"],
-    tests = [
-        "//tools:shellcheck",
-    ],
-)
