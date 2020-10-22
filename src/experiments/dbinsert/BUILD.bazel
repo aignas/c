@@ -1,0 +1,32 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+load("@com_github_aignas_rules_shellcheck//:def.bzl", "shellcheck_test")
+
+go_library(
+    name = "dbinsert",
+    srcs = ["insert.go"],
+    importpath = "github.com/aignas/c/experiments/dbinsert",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_go_sql_driver_mysql//:mysql",
+        "@com_github_gofrs_uuid//:uuid",
+        "@com_github_jmoiron_sqlx//:sqlx",
+        "@com_github_masterminds_squirrel//:squirrel",
+    ],
+)
+
+go_test(
+    name = "dbinsert_test",
+    srcs = ["insert_test.go"],
+    embed = [":dbinsert"],
+    deps = [
+        "@com_github_gofrs_uuid//:uuid",
+        "@com_github_jmoiron_sqlx//:sqlx",
+        "@com_github_stretchr_testify//require",
+    ],
+)
+
+shellcheck_test(
+    name = "shellcheck",
+    data = glob(["*.sh"]),
+    tags = ["lint"],
+)
