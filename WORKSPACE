@@ -53,7 +53,7 @@ http_archive(
 
 git_repository(
     name = "com_github_aignas_rules_shellcheck",
-    commit = "94b231c8475f067c60f77459b2b54f4bcacc5e73",
+    commit = "3497c019704c295f0cb2ea9b4dcd3d0be73703ef",
     remote = "https://github.com/aignas/rules_shellcheck.git",
 )
 
