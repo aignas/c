@@ -71,4 +71,6 @@ There is a list of known issues, that I would like to address before I deem this
 
 ## Links
 
-- [Awesome monorepo](https://github.com/korfuri/awesome-monorepo/blob/master/README.md)
+- [Awesome monorepo](https://github.com/korfuri/awesome-monorepo)
+- [Awesome bazel](https://github.com/jin/awesome-bazel)
+- [Trunk based development: Monorepos](https://trunkbaseddevelopment.com/monorepos/)
