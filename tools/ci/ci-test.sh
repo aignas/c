@@ -22,7 +22,6 @@ source .envrc
 ensure bazel run //:buildifier
 ensure bazel run //:gazelle
 ensure mod-tidy
-ensure raze
 ensure rustfmt
 bazel build //src/...
 bazel test //src/...
