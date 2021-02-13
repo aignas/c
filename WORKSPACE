@@ -100,6 +100,16 @@ rust_repositories(
     version = "1.47.0",
 )
 
-load("//cargo:crates.bzl", "raze_fetch_remote_crates")
+git_repository(
+    name = "blackjack",
+    commit = "a99442eba11be8b638160a41e427ec2fdce426a7",
+    remote = "https://github.com/wildarch/blackjack.git",
+)
 
-raze_fetch_remote_crates()
+load("@blackjack//:workspace.bzl", "blackjack_cargo")
+
+blackjack_cargo()
+
+load("//src:cargo_dependencies.bzl", "cargo_dependencies")
+
+cargo_dependencies()

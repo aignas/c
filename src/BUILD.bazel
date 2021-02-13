@@ -1,1 +1,3 @@
 # gazelle:prefix github.com/aignas/c
+
+exports_files(["Cargo.toml"])
