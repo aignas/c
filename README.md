@@ -67,4 +67,10 @@ There is a list of known issues, that I would like to address before I deem this
   * https://github.com/bazelbuild/rules_rust/issues/71
   * https://github.com/bazelbuild/rules_rust/pull/384
   
-  It is possible to get autocompletion working if one symlinks //cargo/{target,Cargo.{toml,lock}} files to the library directory and moves the `.rs` files into a `src` subdir
+  It is possible to get autocompletion working if one symlinks //cargo/{target,Cargo.{toml,lock}} files to the library directory and moves the `.rs` files into a `src` subdir.
+
+## Links
+
+- [Awesome monorepo](https://github.com/korfuri/awesome-monorepo)
+- [Awesome bazel](https://github.com/jin/awesome-bazel)
+- [Trunk based development: Monorepos](https://trunkbaseddevelopment.com/monorepos/)
