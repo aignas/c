@@ -1,7 +1,12 @@
 #!/bin/bash
 set -euo pipefail
 
-[[ -n "$*" ]] && exec bazel run "@rust_linux_x86_64//:rustfmt" -- "$@"
+platform=linux
+if [ "$(uname -s)" == "Darwin" ]; then
+    platform=darwin
+fi
+
+[[ -n "$*" ]] && exec bazel run "@rust_${platform}_x86_64//:rustfmt" -- "$@"
 
 git ls-files |
     grep -E ".rs$" |
