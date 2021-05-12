@@ -14,7 +14,7 @@ def cargo_dependencies():
         strip_prefix = "aho-corasick-0.7.15",
         type = "tar.gz",
         build_file_content = """
-load("@io_bazel_rules_rust//rust:rust.bzl", "rust_library")
+load("@rules_rust//rust:rust.bzl", "rust_library")
 
 rust_library(
     name = "aho_corasick",
@@ -38,7 +38,7 @@ rust_library(
         strip_prefix = "memchr-2.3.4",
         type = "tar.gz",
         build_file_content = """
-load("@io_bazel_rules_rust//rust:rust.bzl", "rust_library")
+load("@rules_rust//rust:rust.bzl", "rust_library")
 
 rust_library(
     name = "memchr",
@@ -62,7 +62,7 @@ rust_library(
         strip_prefix = "once_cell-1.5.2",
         type = "tar.gz",
         build_file_content = """
-load("@io_bazel_rules_rust//rust:rust.bzl", "rust_library")
+load("@rules_rust//rust:rust.bzl", "rust_library")
 
 rust_library(
     name = "once_cell",
@@ -86,7 +86,7 @@ rust_library(
         strip_prefix = "regex-1.4.3",
         type = "tar.gz",
         build_file_content = """
-load("@io_bazel_rules_rust//rust:rust.bzl", "rust_library")
+load("@rules_rust//rust:rust.bzl", "rust_library")
 
 rust_library(
     name = "regex",
@@ -110,7 +110,7 @@ rust_library(
         strip_prefix = "regex-syntax-0.6.22",
         type = "tar.gz",
         build_file_content = """
-load("@io_bazel_rules_rust//rust:rust.bzl", "rust_library")
+load("@rules_rust//rust:rust.bzl", "rust_library")
 
 rust_library(
     name = "regex_syntax",
@@ -134,7 +134,7 @@ rust_library(
         strip_prefix = "thread_local-1.1.3",
         type = "tar.gz",
         build_file_content = """
-load("@io_bazel_rules_rust//rust:rust.bzl", "rust_library")
+load("@rules_rust//rust:rust.bzl", "rust_library")
 
 rust_library(
     name = "thread_local",

@@ -62,8 +62,8 @@ load("@com_github_aignas_rules_shellcheck//:deps.bzl", "shellcheck_dependencies"
 shellcheck_dependencies()
 
 git_repository(
-    name = "io_bazel_rules_rust",
-    commit = "3dffbabb3ab65a41056228b5c387d4b78331eaec",
+    name = "rules_rust",
+    commit = "96d5118f03411f80182fd45426e259eedf809d7a",
     remote = "https://github.com/bazelbuild/rules_rust.git",
 )
 
@@ -89,20 +89,16 @@ load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
 
 rules_pkg_dependencies()
 
-load("@io_bazel_rules_rust//:workspace.bzl", "bazel_version")
-
-bazel_version(name = "bazel_version")
-
-load("@io_bazel_rules_rust//rust:repositories.bzl", "rust_repositories")
+load("@rules_rust//rust:repositories.bzl", "rust_repositories")
 
 rust_repositories(
     edition = "2018",
-    version = "1.47.0",
+    version = "1.52.1",
 )
 
 git_repository(
     name = "blackjack",
-    commit = "a99442eba11be8b638160a41e427ec2fdce426a7",
+    commit = "38f41de67b95d10c1dcfa88a3717af1dd9786496",
     remote = "https://github.com/wildarch/blackjack.git",
 )
 
