@@ -56,14 +56,14 @@ jobs:
         with:
           name: test-results
           path: ./artifacts/test-results/
-          if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
+          if-no-files-found: error
 
       - name: Upload godot
         uses: actions/upload-artifact@v2
         with:
           name: godot
           path: ./artifacts/debs/src/cmd/godot/godot-debian.deb
-          if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
+          if-no-files-found: error
 
   publish-test-results:
     name: "Publish Test Results"
@@ -87,4 +87,3 @@ jobs:
         with:
           check_name: Test Results
           files: test-results/**/*.xml
-          hide_comments: "all but latest"
