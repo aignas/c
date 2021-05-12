@@ -87,3 +87,4 @@ jobs:
         with:
           check_name: Test Results
           files: test-results/**/*.xml
+          comment_mode: off
