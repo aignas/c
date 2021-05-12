@@ -70,20 +70,21 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     # the build-and-test job might be skipped, we don't need to run this job then
+    if: >
+      github.event.workflow_run.conclusion != 'skipped' && (
+        github.event.sender.login == 'dependabot[bot]' ||
+        github.event.workflow_run.head_repository.full_name != github.repository
+      )
 
     steps:
-      - name: Download Artifacts
+      - name: Download
         uses: actions/download-artifact@v2
         with:
           path: test-results
 
-      - name: Publish Test Results
+      - name: Publish
         uses: EnricoMi/publish-unit-test-result-action@v1.16
-        if: >
-          allways() && (
-            github.event_name == 'push' ||
-            github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository
-          )
         with:
           check_name: Test Results
           files: test-results/**/*.xml
+          hide_comments: "all but latest"
