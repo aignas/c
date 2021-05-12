@@ -83,7 +83,7 @@ jobs:
           path: test-results
 
       - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1.3
+        uses: EnricoMi/publish-unit-test-result-action@v1
         with:
           check_name: Test Results
           github_token: ${{ secrets.GITHUB_TOKEN }}
