@@ -51,12 +51,15 @@ jobs:
         # TODO: remove when github actions support symlinks
         run: ./tools/ci/ci-collect.sh
 
-      - name: Upload test results
-        uses: actions/upload-artifact@v2
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: >
+          (
+            github.event_name == 'push' ||
+            github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository
+          )
         with:
-          name: test-results
-          path: ./artifacts/test-results/
-          if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
+          files: ./artifacts/test-results/**/*.xml
 
       - name: Upload godot
         uses: actions/upload-artifact@v2
@@ -64,27 +67,3 @@ jobs:
           name: godot
           path: ./artifacts/debs/src/cmd/godot/godot-debian.deb
           if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
-
-  publish-test-results:
-    name: "Publish Test Results"
-    needs: build
-    runs-on: ubuntu-latest
-    # the build-and-test job might be skipped, we don't need to run this job then
-    if: >
-      success() || failure() && (
-        github.event_name == 'push' ||
-        github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository
-      )
-
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          path: test-results
-
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
-        with:
-          check_name: Test Results
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          files: test-results/**/*.xml
