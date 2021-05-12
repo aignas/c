@@ -69,6 +69,17 @@ jobs:
           path: ./artifacts/debs/src/cmd/godot/godot-debian.deb
           if-no-files-found: error
 
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        if: github.ref == 'refs/heads/main'
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: latest
+          prerelease: true
+          title: "Development Build"
+          files: |
+            LICENSE
+            ./artifacts/debs/**/*
+
   publish-test-results:
     name: "Publish Test Results"
     needs: build
