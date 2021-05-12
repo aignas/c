@@ -83,7 +83,7 @@ jobs:
           path: test-results
 
       - name: Publish
-        uses: EnricoMi/publish-unit-test-result-action@v1.16
+        uses: EnricoMi/publish-unit-test-result-action@v1.15
         with:
           check_name: Test Results
           files: test-results/**/*.xml
