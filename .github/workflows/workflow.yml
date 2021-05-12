@@ -64,3 +64,26 @@ jobs:
           name: godot
           path: ./artifacts/debs/src/cmd/godot/godot-debian.deb
           if-no-files-found: error
+
+  publish-test-results:
+    name: "Publish Test Results"
+    needs: build
+    runs-on: ubuntu-latest
+    # the build-and-test job might be skipped, we don't need to run this job then
+    if: >
+      github.event.workflow_run.conclusion != 'skipped' && (
+        github.event.sender.login == 'dependabot[bot]' ||
+        github.event.workflow_run.head_repository.full_name != github.repository
+      )
+
+    steps:
+      - name: Download
+        uses: actions/download-artifact@v2
+        with:
+          path: test-results
+
+      - name: Publish
+        uses: EnricoMi/publish-unit-test-result-action/composite@v1
+        with:
+          check_name: Test Results
+          files: test-results/**/*.xml
