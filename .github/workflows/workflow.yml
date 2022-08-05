@@ -22,13 +22,13 @@ jobs:
           toolchain: stable
 
       - name: Mount bazel cache
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v3.0.6
         with:
           path: ~/.cache/bazel
           key: bazel-${{ hashFiles('.bazelversion') }}
 
       - name: Mount cargo cache
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v3.0.6
         with:
           path: |
             ~/.cargo/registry
@@ -37,7 +37,7 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('cargo/**/Cargo.lock') }}
 
       - name: Mount tools
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v3.0.6
         with:
           path: |
             tools/bin/
