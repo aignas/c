@@ -56,14 +56,14 @@ jobs:
         run: ./tools/ci/ci-collect.sh
 
       - name: Upload test results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: test-results
           path: ./artifacts/test-results/
           if-no-files-found: error
 
       - name: Upload godot
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: godot
           path: ./artifacts/debs/src/cmd/godot/godot-debian.deb
